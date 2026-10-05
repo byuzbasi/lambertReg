@@ -1,0 +1,12 @@
+*.o
+*.so
+*.dll
+*.dylib
+*.tar.gz
+*.Rcheck/
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+.Rproj.user/
+inst/doc/

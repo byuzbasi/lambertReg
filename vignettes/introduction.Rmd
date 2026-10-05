@@ -1,0 +1,229 @@
+---
+title: "An Introduction to lambertReg"
+author: "Bahadir Yuzbasi"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{An Introduction to lambertReg}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
+  fig.width = 9, fig.height = 5.8, out.width = "100%", dpi = 120)
+```
+
+## Introduction
+
+**lambertReg** fits sparse Gaussian regression with the Lambert penalty.
+It provides a regularization path, cross-validation, predictions on the
+original response scale, and plots of CV error and coefficient paths.
+The penalty shape is fixed at \(c=1\); only the penalty strength is tuned.
+
+For a training sample of size \(n\) with \(p\) predictors, the fitted
+standardized coefficient vector \(b\in\mathbb R^p\) minimizes the objective
+\[
+  \frac{1}{2n}\lVert y_c-Zb\rVert_2^2+
+  \sum_{j=1}^p p_\lambda(|b_j|).
+\]
+Here \(y_c\) is the centered response, \(Z\) is the centered and scaled
+training matrix, and \(\lambda>0\) controls regularization. The intercept
+is unpenalized. The bounded penalty \(p_\lambda\) shrinks small coefficients
+and becomes constant for coefficient magnitudes at least \(e\lambda\).
+Its analytic coordinate update avoids a numerical scalar optimization at
+each step. The objective is nonconvex: the numerical checks certify
+stationarity and assess active curvature, not global optimality.
+
+## Quick start
+
+This small synthetic example has eight predictors and three nonzero
+coefficients. We reserve twenty observations for illustrating prediction;
+they do not enter preprocessing or tuning.
+
+```{r data}
+library(lambertReg)
+set.seed(42)
+x <- matrix(rnorm(100 * 8), nrow = 100, ncol = 8)
+colnames(x) <- paste0("x", seq_len(ncol(x)))
+y <- 2 * x[, 1] - x[, 2] + 0.5 * x[, 3] + rnorm(100)
+train <- seq_len(80)
+x_train <- x[train, , drop = FALSE]
+y_train <- y[train]
+x_test <- x[-train, , drop = FALSE]
+y_test <- y[-train]
+```
+
+We supply the fold labels explicitly so that the same partition can be
+reused. With five folds, each fit uses four folds for training and one for
+validation. The default path contains sixty penalty fractions from 1 to
+0.001, spaced uniformly on a logarithmic scale.
+
+```{r cv-fit}
+foldid <- sample(rep(1:5, length.out = length(y_train)))
+fit <- cv.lambert(x_train, y_train, foldid = foldid)
+print(fit)
+stopifnot(fit$ok)
+```
+
+`lambda.min` is the **CV-selected full-training penalty**, not the smallest
+penalty in the grid. `fit$index` identifies its position. After tuning, the
+package fits the full-training path, which also supplies the variable counts
+and coefficient paths shown below.
+
+```{r selected-fit}
+knitr::kable(data.frame(
+  Lambda = fit$lambda.min,
+  Fraction = fit$fraction.min,
+  CV_MSE = fit$cvm[fit$index],
+  Selected = fit$nzero[fit$index]
+), digits = 4, row.names = FALSE)
+```
+
+## Cross-validation plot
+
+```{r cv-plot, fig.alt="Lambert CV error with fold-based error bars, selected-variable counts and the selected penalty."}
+plot(fit)
+```
+
+The horizontal axis is \(\log(\lambda/\lambda_{\max})\), increasing from
+weaker to stronger regularization. Blue points show mean validation-fold
+MSE. The orange point and dashed line mark the selected candidate. The upper
+axis gives the number of selected variables in each full-training model,
+excluding the intercept; selection uses \(|\widehat\beta_j|>10^{-8}\) on
+the original coefficient scale. These counts are not fold averages.
+
+Error bars are the mean plus or minus one descriptive standard error,
+computed as the standard deviation of the \(K\) fold MSEs divided by
+\(\sqrt K\), where \(K\) is the number of folds. Training samples overlap,
+so the bars should not be read as independent-sample confidence intervals.
+They do not change the minimum-CV selection rule.
+
+For a publication figure, `style = "paper"` omits the title and summary
+annotations. The following calls customize the same stored results; none
+refits the model.
+
+```{r plot-options, eval=FALSE}
+plot(fit, style = "paper")
+plot(fit, xaxis = "lambda")    # log full-training lambda
+plot(fit, error_bars = FALSE)
+plot(fit, show_nzero = FALSE)
+```
+
+## Coefficients and regularization paths
+
+`coef()` returns the intercept and coefficients on the original predictor
+scale. There is no post-selection least-squares refit.
+
+```{r coefficients}
+knitr::kable(coef(fit), col.names = "Coefficient", digits = 4)
+```
+
+```{r coefficient-plot, fig.alt="Original-scale Lambert coefficient paths and the CV-selected penalty."}
+plot(fit, type = "coefficients", labels = TRUE, xaxis = "lambda")
+```
+
+The coefficient plot excludes the intercept and follows the path from
+stronger to weaker regularization, so its horizontal axis decreases from
+left to right. The dashed line identifies the selected penalty. Curve
+magnitudes depend on predictor units; they are not scale-free measures of
+importance. Unverified path positions appear as gaps.
+
+If cross-validation is unnecessary, `lambert()` fits a path directly. Use
+an explicit index to extract one of its verified fits; coefficients are
+not interpolated between path positions.
+
+```{r direct-path}
+path <- lambert(x_train, y_train, lambda_fraction = c(1, 0.5, 0.2, 0.1))
+print(path)
+coef(path, index = 3L)
+```
+
+## Prediction on new observations
+
+New predictors must have the same columns, names and order as the training
+matrix. Pass their original values: the fitted object handles the training
+transformation and returns predictions on the original response scale.
+
+```{r prediction}
+pred <- drop(predict(fit, newx = x_test))
+knitr::kable(head(data.frame(Observed = y_test, Predicted = pred)), digits = 3)
+knitr::kable(data.frame(
+  RMSE = sqrt(mean((y_test - pred)^2)),
+  MAE = mean(abs(y_test - pred))
+), digits = 4, row.names = FALSE)
+```
+
+This small held-out example demonstrates the API, not comparative method
+performance. For an empirical assessment, use independent test observations
+or outer cross-validation. The minimum tuning-CV error is not an external
+test-error estimate.
+
+## Preprocessing and the CV scale
+
+Within each training sample, predictor \(j\) is centered by its training
+mean \(\bar x_j\) and divided by
+\(s_j=\{n^{-1}\sum_i(x_{ij}-\bar x_j)^2\}^{1/2}\).
+Thus \(Z_{ij}=(x_{ij}-\bar x_j)/s_j\) has squared column norm \(n\).
+The response is centered by its training mean and is not variance-scaled.
+These operations are repeated using only the training observations of each
+CV fold. Validation observations never determine centers, scales or penalties.
+
+The entry score is \(\lambda_{\max}=\max_j|Z_j^\top y_c|/n\), where
+\(Z_j\) denotes column \(j\). CV aligns candidates by a common fraction
+\(\tau_k\in(0,1]\). In training fold \(f\), candidate \(k\) uses
+\(\lambda_{k,f}=\tau_k\lambda_{\max,f}\); the absolute penalties can
+therefore differ between folds. The tuning score is the arithmetic mean of
+fold MSEs, even when fold sizes differ. Ties within the documented numerical
+tolerance favor the larger fraction. See `?cv.lambert` for the exact rule.
+
+## Checking a fitted object
+
+```{r diagnostics}
+knitr::kable(data.frame(
+  Selected_fit_ok = fit$ok,
+  Status = fit$status,
+  Partial_CV_search = fit$partial_search,
+  Full_path_complete = fit$full_path_complete
+), row.names = FALSE)
+```
+
+These fields answer different questions. `ok` concerns the selected fit;
+`partial_search` records whether any CV candidate was unavailable; and
+`full_path_complete` concerns the full-training path. A partial search can
+still yield a verified selected fit. Inspect `fit$cv_diagnostics` for fold
+records and `fit$lambert.fit$diagnostics` for full-training records.
+`predict()` and `coef()` refuse unverified requested fits.
+
+Each penalty position is attempted from both a warm start and a zero start.
+The lower-objective verified candidate is retained. `max_sweeps` and
+`kkt_tol` control the iteration budget and normalized KKT tolerance; increasing
+the budget can help difficult fits but does not guarantee a global optimum.
+At a curvature join the Hessian assessment can be unavailable, which is
+reported explicitly. The package does not silently replace a rejected
+CV-selected candidate with another penalty.
+
+## Scope and reproducibility
+
+Inputs must be finite dense numeric matrices and a numeric response.
+Missing values, constant training columns, and zero entry scores produce
+errors. The package does not silently remove observations or predictors.
+Formula interfaces, observation weights, sparse-matrix inputs and
+non-Gaussian families are not implemented in this version.
+
+Save the fold labels, input column order, package version and solver controls
+with your analysis. When `foldid` is supplied, fitting does not consume random
+numbers; otherwise folds are sampled from the caller's R random-number state.
+No optional early stopping or one-standard-error selection rule is applied.
+
+```{r version}
+packageVersion("lambertReg")
+```
+
+The development repository is
+[byuzbasi/lambertReg](https://github.com/byuzbasi/lambertReg). It is private
+and requires access authorization; this package has not been released on
+CRAN. Installation instructions are in the README. For reference details,
+use `citation("lambertReg")`. The package is distributed under GPL-3.

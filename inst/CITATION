@@ -1,0 +1,6 @@
+bibentry(bibtype = "Manual",
+  title = "lambertReg: Sparse Gaussian Regression with the Lambert Penalty",
+  author = person("Bahadir", "Yuzbasi"),
+  year = "2026", url = "https://github.com/byuzbasi/lambertReg", note = paste("R package version", meta$Version),
+  textVersion = paste("Yuzbasi B (2026). lambertReg: Sparse Gaussian Regression",
+    "with the Lambert Penalty. R package version", meta$Version))

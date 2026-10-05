@@ -1,0 +1,21 @@
+Package: lambertReg
+Type: Package
+Title: Sparse Gaussian Regression with the Lambert Penalty
+Version: 0.1.9
+Authors@R: person("Bahadir", "Yuzbasi", email = "b.yzb@hotmail.com",
+    role = c("aut", "cre"))
+Description: Fits sparse Gaussian regression using a bounded Lambert penalty
+    with fixed shape and an explicit coordinate update. Provides regularization
+    paths, training-only cross-validation, original-scale predictions, and
+    numerical diagnostics. Fits are stationary solutions rather than certified
+    global minimizers of the nonconvex objective.
+License: GPL-3
+Encoding: UTF-8
+Depends: R (>= 4.1.0)
+Imports: Rcpp, stats, graphics
+LinkingTo: Rcpp
+NeedsCompilation: yes
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
+URL: https://github.com/byuzbasi/lambertReg
+BugReports: https://github.com/byuzbasi/lambertReg/issues

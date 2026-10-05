@@ -1,0 +1,24 @@
+{
+  "source_project": "penalized_estimation",
+  "shape": 1,
+  "backend": "reference",
+  "sources": [
+    {
+      "file": "R/performance_models.R",
+      "sha256": "743a04b1d9a4b62faecf7e1257ad601626a920aa0db67bd42d72f7b57e472007"
+    },
+    {
+      "file": "R/lambert_family.R",
+      "sha256": "e98622cfdcf5f9d918713c3744e1976cd74224105105aef012308a348d1fc435"
+    },
+    {
+      "file": "src/lambert_performance.cpp",
+      "sha256": "8e435d448f01d59b5dc5c04339c076aa7d37efab56412930bf9083fe7cf812b9"
+    },
+    {
+      "file": "protocol/lambert_simulation_main_v2.md",
+      "sha256": "a3e7dfd4d158196b47923efcaacbcc0ddcd46d36bec2f90dfa132683f02c6d84"
+    }
+  ],
+  "adaptation": "Lambert-only R path extraction; C++ core copied without changes. Package wrappers add input validation and S3 methods. No production results included."
+}
