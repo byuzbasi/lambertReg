@@ -2,13 +2,13 @@
 
 Sparse Gaussian regression with the **Lambert** penalty. Shape is fixed at
 c = 1; cross-validation selects only the relative penalty-path position.
-This initial package uses the manuscript's reference R/C++ implementation.
+The package implements the manuscript's fitting rule in R and C++.
 It is a development package hosted in a private GitHub repository; it is not
 a CRAN release. Repository access requires authorization.
 
 ## Installation
 
-Install the source archive with `R CMD INSTALL lambertReg_0.1.9.tar.gz`.
+Install the source archive with `R CMD INSTALL lambertReg_0.1.10.tar.gz`.
 R (>= 4.1.0), Rcpp, and an R-compatible C++ toolchain are required.
 The fitting functions do not require glmnet, ncvreg, mltools, knitr or
 kableExtra. Building the vignette additionally uses knitr and rmarkdown
@@ -57,14 +57,25 @@ test error.
   times the full-training entry score.
 - Both warm and zero starts; objective ties favor warm starts, CV ties favor
   larger penalty fractions. Relative tie tolerance is 1e-10.
+- Identical warm and zero initial vectors share a solver result only after it
+  passes verification. Both attempt records remain; `executed` and `reused`
+  identify work performed and reused results. Distinct starts run separately.
 - 10,000 sweeps per start and normalized KKT tolerance 1e-7 by default.
 - Selected-fit active-curvature checks follow the reference implementation.
 - No response variance scaling, post-selection refit, shape tuning, or
-  coefficient interpolation. No optional early pruning in this initial version.
+  coefficient interpolation. No optional early pruning is applied.
 
 The package contains only the Lambert estimation components, not the study's
 simulation runner, comparator methods, or numerical datasets. Source hashes
 and extraction notes are in `system.file("PROVENANCE.json", package="lambertReg")`.
+
+## Computation
+
+Version 0.1.10 uses column-contiguous C++ updates and shares Lambert-root
+calculations within numerical checks. Training preprocessing omits an unused
+SVD; validation predictors are standardized once per fold. These changes
+preserve the coordinate order, tolerances, full path and CV selection rule.
+Speed gains depend on the design and convergence difficulty.
 
 ## Failure handling and scope
 
@@ -95,7 +106,7 @@ authorized, or contact the maintainer by email.
 
 GPL-3. Maintainer: Bahadir Yuzbasi <b.yzb@hotmail.com>.
 
-## CV error plot (0.1.9)
+## CV error plot
 
 ```r
 plot(fit)                    # detailed CV plot, error bars and selected-fit summary
@@ -174,7 +185,7 @@ not a benchmark or an empirical result from the manuscript.
 ## Local checking
 
 With the declared dependencies available, run `R CMD build lambertReg`, then
-`R CMD check --as-cran lambertReg_0.1.9.tar.gz`. This builds and checks the help,
+`R CMD check --as-cran lambertReg_0.1.10.tar.gz`. This builds and checks the help,
 examples, tests and vignette. A private GitHub URL is inaccessible to anonymous
 URL validators. Any such findings must be reported when preparing a public
 submission. CRAN acceptance and cross-platform checks are separate steps.

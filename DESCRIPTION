@@ -1,7 +1,7 @@
 Package: lambertReg
 Type: Package
 Title: Sparse Gaussian Regression with the Lambert Penalty
-Version: 0.1.9
+Version: 0.1.10
 Authors@R: person("Bahadir", "Yuzbasi", email = "b.yzb@hotmail.com",
     role = c("aut", "cre"))
 Description: Fits sparse Gaussian regression using a bounded Lambert penalty

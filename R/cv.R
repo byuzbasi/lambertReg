@@ -34,9 +34,13 @@ cv.lambert <- function(x, y, nfolds = 5L, foldid = NULL,
   losses <- matrix(NA_real_, length(lambda_fraction), nfolds)
   for (f in seq_len(nfolds)) {
     pp <- perf_path(preps[[f]], setting, cfg); paths[[f]] <- pp
+    # Use training-fold statistics once for all validation predictions.
+    valid_x <- sweep(sweep(d$x[foldid == f, , drop = FALSE],
+      2, preps[[f]]$mx, "-"), 2, preps[[f]]$sx, "/")
+    valid_y <- d$y[foldid == f]
     for (k in which(pp$diagnostics$ok)) {
-      pred <- perf_predict(pp$beta[, k], preps[[f]], d$x[foldid == f, , drop = FALSE])
-      if (all(is.finite(pred))) losses[k, f] <- mean((d$y[foldid == f] - pred)^2)
+      pred <- preps[[f]]$my + drop(valid_x %*% pp$beta[, k])
+      if (all(is.finite(pred))) losses[k, f] <- mean((valid_y - pred)^2)
     }
     records[[f]] <- cbind(fold = f, pp$diagnostics, loss = losses[, f])
     attempts[[f]] <- cbind(fold = f, pp$attempts)

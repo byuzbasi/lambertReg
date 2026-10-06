@@ -1,7 +1,7 @@
 {
   "source_project": "penalized_estimation",
   "shape": 1,
-  "backend": "reference",
+  "backend": "equivalent_fast",
   "sources": [
     {
       "file": "R/performance_models.R",
@@ -18,7 +18,15 @@
     {
       "file": "protocol/lambert_simulation_main_v2.md",
       "sha256": "a3e7dfd4d158196b47923efcaacbcc0ddcd46d36bec2f90dfa132683f02c6d84"
+    },
+    {
+      "file": "src/lambert_performance_fast_v1.cpp",
+      "sha256": "e481172929578fa94449ff53483d42255ebc6d4d37b645d64fd6d5609b9b558c"
+    },
+    {
+      "file": "R/performance_acceleration_v1.R",
+      "sha256": "41e3f932adfe25aa0f82282904cc6d4e159ddcb25b00edb42152d281eb1d815e"
     }
   ],
-  "adaptation": "Lambert-only R path extraction; C++ core copied without changes. Package wrappers add input validation and S3 methods. No production results included."
+  "adaptation": "Lambert-only extraction with the validated fast C++ kernel, preserving registered interfaces, coordinate order, scalar arithmetic and convergence criteria. Unused SVD omitted, validation scaling cached per fold, and verified identical starts reused with both attempt records retained. No early stopping; no production results included."
 }

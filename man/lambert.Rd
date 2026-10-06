@@ -2,8 +2,8 @@
 \alias{lambert}
 \title{Gaussian Regression Paths with the Fixed Lambert Penalty}
 \description{Fit a regularization path with the bounded Lambert penalty of shape
-\eqn{c=1}. Exact cyclic scalar updates are computed by the compiled reference
-solver. No shape selection or post-selection refit is performed.}
+\eqn{c=1}. Exact cyclic scalar updates are computed by a compiled
+solver that preserves the reference fitting rule. No shape selection or post-selection refit is performed.}
 \usage{
 lambert(x, y, lambda = NULL,
         lambda_fraction = 10^seq(0, -3, length.out = 60L),
@@ -41,6 +41,9 @@ vector as starts. Among numerically accepted candidates the smaller objective
 is chosen, with relative tolerance \eqn{10^{-10}} and the warm start favored
 in a tie. A failed position resets the next warm start to zero. Diagnostics
 include the normalized KKT residual, objective, iterations and both starts.
+When the two initial vectors are exactly identical and the warm-start result
+passes the solver and independent KKT checks, that result is reused for the
+zero-start record. Distinct starts and failed warm starts are solved separately.
 Curvature on the active coordinates is also recorded; a negative local
 curvature rejects verification. At a curvature join this check is reported as
 unavailable rather than as a positive-curvature certificate. These checks do
@@ -75,7 +78,10 @@ of the full-training entry score.}
 The \code{solver_lambda} and \code{solver_shape} columns record solver inputs.
 These are solver/KKT records; consult \code{verified} for the additional
 active-curvature assessment.}
-\item{attempts}{The same diagnostic columns for both starts at each position.}
+\item{attempts}{The same diagnostic columns for both logical starts at each
+position, plus logical \code{executed} and \code{reused} columns. A reused
+record has \code{executed = FALSE}, \code{reused = TRUE}, zero \code{elapsed}
+and the iteration count of the verified warm-start solve it shares.}
 \item{curvature}{Length-\eqn{L} list with \code{status},
 \code{min_eigenvalue} and \code{condition} for each active-set Hessian.}
 \item{verified, status}{Length-\eqn{L} logical acceptance indicators and

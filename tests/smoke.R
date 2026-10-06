@@ -26,6 +26,15 @@ f <- lambert(x, y, lambda_fraction = grid)
 stopifnot(all(f$verified), all(f$beta[, 1] == 0),
   near(predict(f, x), cbind(1, x) %*% coef(f)),
   near(f$scale, sqrt(colMeans(sweep(x, 2, colMeans(x), "-")^2))))
+# Both logical starts remain; reuse requires identical, verified initial states.
+audit <- f$attempts
+stopifnot(nrow(audit) == 2L * length(grid), any(audit$reused),
+  all(audit$executed != audit$reused),
+  all(audit$selected_start[audit$reused] == "zero"),
+  all(audit$ok[audit$reused]), all(audit$elapsed[audit$reused] == 0))
+for (k in which(colSums(abs(f$beta_standardized)) > 0) + 1L) {
+  if (k <= length(grid)) stopifnot(all(audit$executed[audit$index == k]))
+}
 rng <- .Random.seed
 cv <- cv.lambert(x, y, foldid = foldid, lambda_fraction = grid)
 stopifnot(identical(rng, .Random.seed), cv$ok, !cv$partial_search,
@@ -59,7 +68,8 @@ bad <- x; bad[, 6] <- 0; bad[foldid == 1, 6] <- 1:12
 stopifnot(rejects(cv.lambert(bad, y, foldid = foldid, lambda_fraction = c(1, .3))))
 # Failed fits remain diagnostic artifacts, and cannot be predicted silently.
 budget <- suppressWarnings(lambert(x, y, lambda_fraction = .05, max_sweeps = 1))
-stopifnot(!budget$verified[1], rejects(predict(budget, x)), rejects(coef(budget)))
+stopifnot(all(budget$attempts$executed), !any(budget$attempts$reused),
+  !budget$verified[1], rejects(predict(budget, x)), rejects(coef(budget)))
 budget_cv <- suppressWarnings(cv.lambert(x, y, foldid = foldid,
   lambda_fraction = .05, max_sweeps = 1))
 stopifnot(!budget_cv$ok, budget_cv$partial_search,

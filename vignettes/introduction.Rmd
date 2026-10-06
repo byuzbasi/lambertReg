@@ -197,7 +197,10 @@ still yield a verified selected fit. Inspect `fit$cv_diagnostics` for fold
 records and `fit$lambert.fit$diagnostics` for full-training records.
 `predict()` and `coef()` refuse unverified requested fits.
 
-Each penalty position is attempted from both a warm start and a zero start.
+Each penalty position considers both a warm start and a zero start.
+When the initial vectors are exactly identical, a verified warm-start result
+is reused; both records remain in `attempts`, with `executed` and `reused`
+flags. Distinct starts are solved separately.
 The lower-objective verified candidate is retained. `max_sweeps` and
 `kkt_tol` control the iteration budget and normalized KKT tolerance; increasing
 the budget can help difficult fits but does not guarantee a global optimum.

@@ -1,3 +1,17 @@
+# lambertReg 0.1.10
+
+- Use the previously validated column-contiguous C++ kernel, reusing Lambert
+  roots for penalty and derivative evaluations with unchanged scalar arithmetic,
+  coordinate order and convergence criteria.
+- Remove an unused singular-value decomposition from training preprocessing.
+- Standardize each validation fold once per CV call rather than at every
+  penalty position, using the same training-only statistics.
+- Reuse verified warm-start fits only when the warm and zero initial vectors
+  are exactly identical. Both logical attempt records remain available;
+  `attempts$executed` and `attempts$reused` distinguish actual solver calls.
+- Preserve public fitting arguments, the complete coefficient path and CV plot
+  data. Early stopping is not enabled.
+
 # lambertReg 0.1.9
 
 * Added an executable introductory vignette covering preprocessing, cross-validation,

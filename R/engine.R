@@ -1,12 +1,11 @@
-# Lambert-only extraction from the frozen reference engine; see inst/PROVENANCE.json.
+# Lambert-only engine with equivalent computational shortcuts; see inst/PROVENANCE.json.
 perf_prepare <- function(X,y,cfg) {
   mx<-colMeans(X); my<-mean(y); Z<-sweep(X,2,mx,"-"); sx<-sqrt(colMeans(Z^2))
   if(any(!is.finite(sx))||any(sx<=cfg$implementation$standardization_tol)||any(!is.finite(y)))
     stop("data_validation_failed: nonfinite or constant training inputs")
   Z<-sweep(Z,2,sx,"/"); yc<-y-my; score<-drop(crossprod(Z,yc)/nrow(Z)); lambda0<-max(abs(score))
   if(!is.finite(lambda0)||lambda0<=0)stop("data_validation_failed: lambda0")
-  list(Z=Z,y=yc,mx=mx,my=my,sx=sx,score=score,lambda0=lambda0,
-    spectral=max(svd(Z,nu=0,nv=0)$d)^2/nrow(Z))
+  list(Z=Z,y=yc,mx=mx,my=my,sx=sx,score=score,lambda0=lambda0)
 }
 
 perf_diagnose <- function(beta,prep,lambda,setting,cfg) {
@@ -50,10 +49,21 @@ perf_path <- function(prep,setting,cfg,pulse=function(...)NULL,last=cfg$lambda_p
   lambda<-perf_lambdas(prep,setting,cfg)[seq_len(last)]
   betas<-matrix(NA_real_,ncol(prep$Z),last)
   diagrows<-vector("list",last); attempts<-list(); warm<-numeric(ncol(prep$Z))
+  reused<-logical(2L*last)
   total_start<-proc.time()[[3]]
     for(k in seq_along(lambda)) {
       candidates<-list()
       for(start_id in c("warm","zero")) {
+        # Reuse only a verified result from an exactly identical initial vector.
+        if(start_id=="zero" && all(warm==0) && isTRUE(candidates$warm$row$ok)) {
+          candidate<-candidates$warm
+          candidate$row$selected_start<-"zero"; candidate$row$elapsed<-0
+          candidates[[start_id]]<-candidate
+          attempts[[length(attempts)+1L]]<-candidate$row
+          reused[length(attempts)]<-TRUE
+          pulse(paste(setting$family,setting$shape,"lambda",k,start_id))
+          next
+        }
         start<-if(start_id=="warm")warm+0 else numeric(length(warm))
         began<-proc.time()[[3]]
         cap<-perf_capture(function() {
@@ -90,7 +100,9 @@ perf_path <- function(prep,setting,cfg,pulse=function(...)NULL,last=cfg$lambda_p
         diagrows[[k]]$selected_start<-"none_verified"; warm[]<-0
       }
     }
-  list(beta=betas,diagnostics=do.call(rbind,diagrows),attempts=do.call(rbind,attempts),
+  attempt_rows<-do.call(rbind,attempts)
+  attempt_rows$executed<-!reused; attempt_rows$reused<-reused
+  list(beta=betas,diagnostics=do.call(rbind,diagrows),attempts=attempt_rows,
     elapsed=proc.time()[[3]]-total_start)
 }
 

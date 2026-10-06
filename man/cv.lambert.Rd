@@ -81,6 +81,7 @@ A partial search can still have \code{ok = TRUE}.}
 \item{cv_diagnostics}{Fold-stacked solver diagnostics, with additional
 \code{fold} and validation \code{loss} columns.}
 \item{attempts}{Fold-stacked records for both starts, with a \code{fold} column.
+The \code{executed} and \code{reused} flags are described in \code{\link{lambert}}.
 Full-training attempts are in \code{lambert.fit$attempts}.}
 \item{selected_curvature}{Length-\eqn{K} list of selected-fold Hessian
 assessments; \code{NULL} if no CV candidate is eligible. Full-training
