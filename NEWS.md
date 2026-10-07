@@ -1,5 +1,8 @@
 # lambertReg 0.1.10
 
+- Streamline the README and organize the introductory vignette as a worked
+  guide to paths, cross-validation, prediction, plots, and diagnostics.
+
 - Use the previously validated column-contiguous C++ kernel, reusing Lambert
   roots for penalty and derivative evaluations with unchanged scalar arithmetic,
   coordinate order and convergence criteria.
