@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 430" role="img" aria-labelledby="title desc">
+<title id="title">lambertReg — Sparse Gaussian regression</title><desc id="desc">lambertReg package banner with an abstract curve motif. Decorative artwork, not a fitted result.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#142f40"/><stop offset="1" stop-color="#234f62"/></linearGradient><clipPath id="rounded"><rect width="1400" height="430" rx="24"/></clipPath></defs>
+<g clip-path="url(#rounded)"><rect width="1400" height="430" fill="url(#bg)"/>
+<g stroke="#8cbdce" opacity=".10" stroke-width="1"><path d="M880 0v430m100-430v430m100-430v430m100-430v430m100-430v430M780 80h620M780 160h620M780 240h620M780 320h620M780 400h620"/></g>
+<circle cx="1220" cy="235" r="210" fill="#386879" opacity=".18"/>
+<path d="M835 325h95c98 0 123-33 163-100s80-104 199-173" fill="none" stroke="#73bdd3" stroke-width="8" stroke-linecap="round"/>
+<path d="M845 360h440" stroke="#527c8d" stroke-width="2"/>
+<circle cx="1090" cy="231" r="13" fill="#df7749" stroke="#214858" stroke-width="5"/>
+<circle cx="1292" cy="52" r="6" fill="#faf7f1"/>
+<text x="74" y="90" font-family="Arial,sans-serif" font-size="18" letter-spacing="3" fill="#b9d5e0">SPARSE GAUSSIAN REGRESSION</text>
+<text x="68" y="208" font-family="Georgia,serif" font-size="105" font-weight="bold" letter-spacing="-3" fill="#faf7f1">lambertReg</text>
+<text x="75" y="268" font-family="Arial,sans-serif" font-size="29" fill="#d7e8ee">A path from shrinkage to selection.</text>
+<rect x="75" y="315" width="91" height="3" rx="1.5" fill="#df7749"/>
+<text x="75" y="373" font-family="Arial,sans-serif" font-size="19" letter-spacing="1" fill="#b9d5e0">PATHS   /   CROSS-VALIDATION   /   PREDICTION</text>
+</g></svg>

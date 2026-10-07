@@ -1,0 +1,30 @@
+/* Readable article layout; no external fonts or JavaScript dependencies. */
+body {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 28px 32px 56px;
+  color: #20252b;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+}
+h1, h2, h3 { color: #172b3a; line-height: 1.25; }
+h1.title { font-size: 2.2em; margin-bottom: 0.3em; }
+h1 { margin-top: 1.7em; }
+h2 { margin-top: 1.5em; }
+a { color: #176489; }
+#TOC { border-left: 3px solid #d4dfe6; padding: 0.4em 1.2em; margin: 1.5em 0 2em; }
+#TOC ul { margin: 0.25em 0; }
+pre { padding: 14px 18px; border: 1px solid #e1e6ea; border-radius: 4px; line-height: 1.45; overflow-x: auto; }
+pre, code { font-size: 0.9em; }
+pre code { font-size: 1em; }
+img { max-width: 100%; height: auto; }
+table { margin: 1.1em 0 1.6em; font-size: 0.93em; }
+th, td { padding: 0.4em 0.8em; }
+th { border-bottom: 2px solid #526978; }
+td { border-bottom: 1px solid #e3e8ec; }
+@media (max-width: 680px) {
+  body { padding: 16px; font-size: 15px; }
+  h1.title { font-size: 1.8em; }
+  table { display: block; overflow-x: auto; }
+}
