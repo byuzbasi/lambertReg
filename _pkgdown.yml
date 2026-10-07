@@ -1,0 +1,68 @@
+title: lambertReg
+destination: docs
+url: https://byuzbasi.github.io/lambertReg/
+development:
+  mode: release
+news:
+  cran_dates: false
+template:
+  bootstrap: 5
+  math-rendering: katex
+  light-switch: false
+  bslib:
+    bg: '#FAF9F6'
+    fg: '#233744'
+    primary: '#235E76'
+    link-color: '#235E76'
+    base_font: 'system-ui'
+    heading_font: 'Georgia'
+    code_font: 'monospace'
+    border-radius: 0.6rem
+home:
+  title: Sparse Gaussian Regression with the Lambert Penalty
+  strip_header: false
+  sidebar: false
+navbar:
+  structure:
+    left: [intro, reference, guides, news]
+    right: [search, github]
+  components:
+    intro:
+      text: Get started
+      href: articles/introduction.html
+    guides:
+      text: Guides
+      menu:
+      - text: Example gallery
+        href: articles/gallery.html
+      - text: Data and reproducibility
+        href: articles/reproduction.html
+      - text: Validation and contributing
+        href: articles/validation.html
+    github:
+      icon: fa-github
+      href: https://github.com/byuzbasi/lambertReg
+      aria-label: Source repository
+reference:
+- title: Fit and tune
+  desc: Regularization paths and training-only cross-validation.
+  contents: [lambert, cv.lambert]
+- title: Inspect and predict
+  desc: Original-scale coefficients, predictions, and stored-fit plots.
+  contents: [predict.lambert]
+- title: Penalty tools
+  desc: Evaluate the fixed-shape penalty and scalar update.
+  contents: [lambert_penalty]
+- title: Package
+  contents: [lambertReg-package]
+articles:
+- title: Start here
+  navbar: ~
+  contents: [introduction]
+- title: Explore
+  navbar: ~
+  contents: [articles/gallery, articles/reproduction, articles/validation]
+footer:
+  structure:
+    left: developed_by
+    right: built_with

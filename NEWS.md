@@ -1,5 +1,8 @@
 # lambertReg 0.1.10
 
+- Add a package logo, a local documentation site, a reproducible example gallery,
+  software citation metadata, and contributor guidance.
+
 - Streamline the README and organize the introductory vignette as a worked
   guide to paths, cross-validation, prediction, plots, and diagnostics.
 

@@ -16,6 +16,7 @@ penalties. All predictions and reported coefficients use the original input
 scale. Training-only predictor centering and RMS scaling are automatic.
 The worked guide is available through
 \code{vignette("introduction", package = "lambertReg")}.
-The source repository is private; access is arranged with the maintainer.}
+Source code and issue reporting are available at
+\url{https://github.com/byuzbasi/lambertReg}.}
 \author{Bahadir Yuzbasi}
 \seealso{\code{\link{lambert}}, \code{\link{cv.lambert}}}

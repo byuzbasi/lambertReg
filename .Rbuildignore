@@ -5,3 +5,10 @@
 ^.*[.]Rproj$
 ^\.Rproj\.user$
 ^\.DS_Store$
+^_pkgdown[.]yml$
+^pkgdown$
+^docs$
+^CITATION[.]cff$
+^CONTRIBUTING[.]md$
+^[.]github$
+^vignettes/articles$

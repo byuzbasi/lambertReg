@@ -1,0 +1,27 @@
+name: Bug report
+description: Report a reproducible fitting, prediction, or plotting problem.
+title: '[Bug]: '
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the expected result and the observed behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Minimal reproducible example
+      description: Use synthetic or public data. Include the seed, foldid, and fitting controls when relevant.
+      render: R
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics and environment
+      description: Include sessionInfo(), packageVersion('lambertReg'), fit status, and any warnings. For plots, include the device size.
+      render: text
+    validations:
+      required: true

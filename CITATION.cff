@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "Please cite lambertReg when using this software; citation('lambertReg') returns the R package citation."
+type: software
+title: "lambertReg: Sparse Gaussian Regression with the Lambert Penalty"
+version: 0.1.10
+authors:
+  - family-names: Yuzbasi
+    given-names: Bahadir
+    orcid: https://orcid.org/0000-0002-6196-3201
+    affiliation: "Department of Econometrics, Inonu University, Malatya, Turkiye"
+repository-code: https://github.com/byuzbasi/lambertReg
+url: https://github.com/byuzbasi/lambertReg
+license: GPL-3.0-only
+abstract: "Sparse Gaussian regression with the fixed-shape Lambert penalty, regularization paths, training-only cross-validation, predictions, and numerical diagnostics."
+keywords:
+  - sparse regression
+  - variable selection
+  - nonconvex regularization
+  - cross-validation
