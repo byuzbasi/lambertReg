@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "Please cite lambertReg when using this software; citation('lambertReg') returns the R package citation."
+message: "Please cite the paper in preferred-citation when using lambertReg; citation('lambertReg') returns both the software and paper citations."
 type: software
 title: "lambertReg: Sparse Gaussian Regression with the Lambert Penalty"
 version: 0.1.10
@@ -17,3 +17,18 @@ keywords:
   - variable selection
   - nonconvex regularization
   - cross-validation
+preferred-citation:
+  type: unpublished
+  title: "The Lambert Penalty: Logarithmic Shrinkage for Sparse Regression"
+  authors:
+    - family-names: Yuzbasi
+      given-names: Bahadir
+      orcid: https://orcid.org/0000-0002-6196-3201
+  year: 2026
+  date-published: "2026-10-07"
+  url: https://arxiv.org/abs/2610.09627
+  notes: "arXiv preprint arXiv:2610.09627 [stat.ME]."
+  identifiers:
+    - type: other
+      value: "arXiv:2610.09627"
+      description: arXiv identifier

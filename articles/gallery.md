@@ -70,7 +70,9 @@ The held-out errors describe only this small demonstration. They do not
 compare Lambert with other estimators or establish a performance
 advantage.
 
-The [data and reproduction guide](reproduction.md) gives the input
-dictionary and the command that saves these plots, the folds, and the
-fit. The complete [worked introduction](introduction.md) explains the
-modeling steps.
+The [data and reproduction
+guide](https://byuzbasi.github.io/lambertReg/articles/reproduction.md)
+gives the input dictionary and the command that saves these plots, the
+folds, and the fit. The complete [worked
+introduction](https://byuzbasi.github.io/lambertReg/articles/introduction.md)
+explains the modeling steps.

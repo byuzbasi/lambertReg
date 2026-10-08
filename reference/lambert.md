@@ -170,8 +170,9 @@ must not be used for prediction.
 
 ## See also
 
-[`cv.lambert`](cv.lambert.md), [`lambert_penalty`](lambert_penalty.md),
-[`predict.lambert`](methods.md)
+[`cv.lambert`](https://byuzbasi.github.io/lambertReg/reference/cv.lambert.md),
+[`lambert_penalty`](https://byuzbasi.github.io/lambertReg/reference/lambert_penalty.md),
+[`predict.lambert`](https://byuzbasi.github.io/lambertReg/reference/methods.md)
 
 ## Examples
 

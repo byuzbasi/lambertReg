@@ -50,7 +50,7 @@ supported. Zero-length input vectors return zero-length vectors.
 
 ## See also
 
-[`lambert`](lambert.md)
+[`lambert`](https://byuzbasi.github.io/lambertReg/reference/lambert.md)
 
 ## Examples
 

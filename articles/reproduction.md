@@ -2,20 +2,21 @@
 
 ## Know your inputs
 
-[`lambert()`](../reference/lambert.md) and
-[`cv.lambert()`](../reference/cv.lambert.md) take a finite dense numeric
-matrix `x` and a numeric response vector `y`. Rows represent
-observations; columns represent predictors. Predictor names, when
-present, must be unique. Prediction data must use the same names and
-column order. Missing values are not imputed, and columns must vary in
-every training sample.
+[`lambert()`](https://byuzbasi.github.io/lambertReg/reference/lambert.md)
+and
+[`cv.lambert()`](https://byuzbasi.github.io/lambertReg/reference/cv.lambert.md)
+take a finite dense numeric matrix `x` and a numeric response vector
+`y`. Rows represent observations; columns represent predictors.
+Predictor names, when present, must be unique. Prediction data must use
+the same names and column order. Missing values are not imputed, and
+columns must vary in every training sample.
 
 The package centers and RMS-scales predictors separately in each
 training sample, centers the response, and leaves the intercept
 unpenalized. The returned coefficients and predictions are in the
 original units. The
-[introduction](introduction.html#penalty-scale-and-preprocessing) gives
-the precise transformation and penalty scale.
+[introduction](https://byuzbasi.github.io/lambertReg/articles/introduction.html#penalty-scale-and-preprocessing)
+gives the precise transformation and penalty scale.
 
 ## Demonstration data dictionary
 
@@ -42,6 +43,13 @@ selection. No observations are removed and no missing values are
 generated in predictors or responses.
 
 ## Reproduce the gallery
+
+The [example
+archive](https://byuzbasi.github.io/lambertReg/examples/lambert-example-v1.zip)
+contains the synthetic inputs, stored model, plots, configuration, and
+checksum manifest listed above. The
+[generator](https://byuzbasi.github.io/lambertReg/examples/showcase.R)
+recreates these files from the frozen seed.
 
 Install lambertReg and make the documentation dependency `digest`
 available. Run the following in R, using a new output directory:
@@ -93,17 +101,18 @@ citation("lambertReg")
     ##   Yuzbasi B (2026). lambertReg: Sparse Gaussian Regression with the
     ##   Lambert Penalty. R package version 0.1.10
     ## 
-    ## A BibTeX entry for LaTeX users is
+    ##   Yuzbasi B (2026). The Lambert Penalty: Logarithmic Shrinkage for
+    ##   Sparse Regression. arXiv preprint arXiv:2610.09627 [stat.ME].
+    ##   https://arxiv.org/abs/2610.09627
     ## 
-    ##   @Manual{,
-    ##     title = {lambertReg: Sparse Gaussian Regression with the Lambert Penalty},
-    ##     author = {Bahadir Yuzbasi},
-    ##     year = {2026},
-    ##     url = {https://github.com/byuzbasi/lambertReg},
-    ##     note = {R package version 0.1.10},
-    ##   }
+    ## To see these entries in BibTeX format, use 'print(<citation>,
+    ## bibtex=TRUE)', 'toBibtex(.)', or set
+    ## 'options(citation.bibtex.max=999)'.
 
-The source repository provides `CITATION.cff` for software citation. The
-associated manuscript is *The Lambert Penalty: Logarithmic Shrinkage for
-Sparse Regression*, by Bahadir Yuzbasi (2026). Its arXiv identifier and
-journal DOI will be added after they are available.
+The source repository provides `CITATION.cff` with the associated paper
+as the preferred citation. The paper is [*The Lambert Penalty:
+Logarithmic Shrinkage for Sparse
+Regression*](https://arxiv.org/abs/2610.09627), by Bahadir Yuzbasi
+(2026), arXiv preprint **arXiv:2610.09627** \[stat.ME\], first posted on
+7 October 2026. `citation("lambertReg")` returns both the software and
+paper citations.

@@ -16,7 +16,8 @@ cv.lambert(x, y, nfolds = 5L, foldid = NULL,
 
 - x, y:
 
-  Training predictors and response, as in [`lambert`](lambert.md).
+  Training predictors and response, as in
+  [`lambert`](https://byuzbasi.github.io/lambertReg/reference/lambert.md).
 
 - nfolds:
 
@@ -40,7 +41,8 @@ cv.lambert(x, y, nfolds = 5L, foldid = NULL,
 
 - max_sweeps, kkt_tol:
 
-  Solver controls described in [`lambert`](lambert.md).
+  Solver controls described in
+  [`lambert`](https://byuzbasi.github.io/lambertReg/reference/lambert.md).
 
 ## Details
 
@@ -110,7 +112,8 @@ Components are:
 - lambert.fit:
 
   Full-training `lambert` path, including when no CV candidate is
-  eligible. Its fields are documented in [`lambert`](lambert.md).
+  eligible. Its fields are documented in
+  [`lambert`](https://byuzbasi.github.io/lambertReg/reference/lambert.md).
 
 - nzero, support_tol:
 
@@ -127,8 +130,10 @@ Components are:
 
   Logical selected-fit acceptance and character status. `no_valid_cv`
   means no candidate had finite loss in all folds. Other status values
-  follow [`lambert`](lambert.md). A negative-curvature selected fold can
-  set `status = "negative_curvature"`.
+  follow
+  [`lambert`](https://byuzbasi.github.io/lambertReg/reference/lambert.md).
+  A negative-curvature selected fold can set
+  `status = "negative_curvature"`.
 
 - partial_search:
 
@@ -144,8 +149,8 @@ Components are:
 
   Fold-stacked records for both starts, with a `fold` column. The
   `executed` and `reused` flags are described in
-  [`lambert`](lambert.md). Full-training attempts are in
-  `lambert.fit$attempts`.
+  [`lambert`](https://byuzbasi.github.io/lambertReg/reference/lambert.md).
+  Full-training attempts are in `lambert.fit$attempts`.
 
 - selected_curvature:
 
@@ -168,7 +173,8 @@ selected prefix. Plotting reads stored values and never fits models.
 
 ## See also
 
-[`lambert`](lambert.md), [`predict.lambert`](methods.md)
+[`lambert`](https://byuzbasi.github.io/lambertReg/reference/lambert.md),
+[`predict.lambert`](https://byuzbasi.github.io/lambertReg/reference/methods.md)
 
 ## Examples
 

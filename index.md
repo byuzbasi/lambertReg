@@ -8,6 +8,8 @@ A fixed penalty shape and training-only cross-validation give a direct
 workflow: fit a path, choose the penalty strength, inspect selected
 variables, and predict in the original units.
 
+[Documentation and examples](https://byuzbasi.github.io/lambertReg/)
+
 **Fit a path**
 
 Explore how coefficients change as regularization varies.
@@ -75,11 +77,11 @@ error. The orange marker identifies the CV-selected penalty.
 
 | Task | Function |
 |:---|:---|
-| Fit a regularization path | [`lambert()`](reference/lambert.md) |
-| Select the penalty strength | [`cv.lambert()`](reference/cv.lambert.md) |
+| Fit a regularization path | [`lambert()`](https://byuzbasi.github.io/lambertReg/reference/lambert.md) |
+| Select the penalty strength | [`cv.lambert()`](https://byuzbasi.github.io/lambertReg/reference/cv.lambert.md) |
 | Extract coefficients or predict | [`coef()`](https://rdrr.io/r/stats/coef.html), [`predict()`](https://rdrr.io/r/stats/predict.html) |
 | Plot CV error or coefficient paths | [`plot()`](https://rdrr.io/r/graphics/plot.default.html) |
-| Evaluate the penalty or scalar update | [`lambert_penalty()`](reference/lambert_penalty.md), [`lambert_threshold()`](reference/lambert_penalty.md) |
+| Evaluate the penalty or scalar update | [`lambert_penalty()`](https://byuzbasi.github.io/lambertReg/reference/lambert_penalty.md), [`lambert_threshold()`](https://byuzbasi.github.io/lambertReg/reference/lambert_penalty.md) |
 
 ``` r
 
@@ -94,16 +96,23 @@ interpreting a fit.
 
 ## Guides and reproducibility
 
-- [Getting started](vignettes/introduction.Rmd): fitting, tuning,
-  prediction, and diagnostics.
-- [Example gallery](vignettes/articles/gallery.Rmd): CV and
-  coefficient-path plots.
-- [Data and reproduction guide](vignettes/articles/reproduction.Rmd):
+- [Getting
+  started](https://byuzbasi.github.io/lambertReg/articles/introduction.md):
+  fitting, tuning, prediction, and diagnostics.
+- [Example
+  gallery](https://byuzbasi.github.io/lambertReg/articles/gallery.md):
+  CV and coefficient-path plots.
+- [Data and reproduction
+  guide](https://byuzbasi.github.io/lambertReg/articles/reproduction.md):
   input definitions, saved folds, and reproducible outputs.
-- [Runnable example](inst/examples/showcase.R): the seed-42
-  demonstration, including input data, plots, and a SHA-256 manifest.
-- [Validation scope](vignettes/articles/validation.Rmd) and
-  [contribution guide](CONTRIBUTING.md).
+- [Runnable
+  example](https://byuzbasi.github.io/lambertReg/examples/showcase.R):
+  the seed-42 demonstration, including input data, plots, and a SHA-256
+  manifest.
+- [Validation
+  scope](https://byuzbasi.github.io/lambertReg/articles/validation.md)
+  and [contribution
+  guide](https://byuzbasi.github.io/lambertReg/CONTRIBUTING.md).
 
 ``` r
 
@@ -115,12 +124,13 @@ citation("lambertReg")
 ## Citation and support
 
 Use `citation("lambertReg")` or the repository’s
-[CITATION.cff](CITATION.cff). The associated manuscript is *The Lambert
-Penalty: Logarithmic Shrinkage for Sparse Regression* (Bahadir Yuzbasi,
-2026).
+[CITATION.cff](https://byuzbasi.github.io/lambertReg/CITATION.cff). The
+associated paper is [*The Lambert Penalty: Logarithmic Shrinkage for
+Sparse Regression*](https://arxiv.org/abs/2610.09627) (Bahadir Yuzbasi,
+2026), arXiv preprint **arXiv:2610.09627** \[stat.ME\].
 
 [Source code](https://github.com/byuzbasi/lambertReg) · [Report an
 issue](https://github.com/byuzbasi/lambertReg/issues) · [Version
-notes](NEWS.md)
+notes](https://byuzbasi.github.io/lambertReg/news/index.md)
 
 GPL-3. Maintainer: Bahadir Yuzbasi <b.yzb@hotmail.com>.

@@ -186,7 +186,8 @@ invisibly.
 
 ## See also
 
-[`lambert`](lambert.md), [`cv.lambert`](cv.lambert.md)
+[`lambert`](https://byuzbasi.github.io/lambertReg/reference/lambert.md),
+[`cv.lambert`](https://byuzbasi.github.io/lambertReg/reference/cv.lambert.md)
 
 ## Examples
 

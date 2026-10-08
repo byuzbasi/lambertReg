@@ -3,9 +3,11 @@
 ## Introduction
 
 **lambertReg** fits sparse Gaussian regression with the Lambert penalty.
-The main functions are [`lambert()`](../reference/lambert.md) for a
-regularization path and [`cv.lambert()`](../reference/cv.lambert.md) for
-choosing the penalty strength by cross-validation. Both provide
+The main functions are
+[`lambert()`](https://byuzbasi.github.io/lambertReg/reference/lambert.md)
+for a regularization path and
+[`cv.lambert()`](https://byuzbasi.github.io/lambertReg/reference/cv.lambert.md)
+for choosing the penalty strength by cross-validation. Both provide
 coefficient extraction, prediction, and plotting methods. This guide
 follows one example from fitting through prediction on new data.
 
@@ -61,9 +63,9 @@ y_test <- y[-train]
 ### Fit a regularization path
 
 Supply a numeric predictor matrix and a response vector to
-[`lambert()`](../reference/lambert.md). The default path has 60
-logarithmically spaced penalty fractions from 1 to 0.001, relative to
-the training entry score \lambda\_{\max}.
+[`lambert()`](https://byuzbasi.github.io/lambertReg/reference/lambert.md).
+The default path has 60 logarithmically spaced penalty fractions from 1
+to 0.001, relative to the training entry score \lambda\_{\max}.
 
 ``` r
 
@@ -118,9 +120,10 @@ predict(path, newx = x_test[1:3, , drop = FALSE], index = 20L)
 
 ### Choose the penalty by cross-validation
 
-[`cv.lambert()`](../reference/cv.lambert.md) uses five folds by default.
-Supplying `foldid` makes the partition explicit and reusable. Each fit
-uses four folds for training and the remaining fold for validation.
+[`cv.lambert()`](https://byuzbasi.github.io/lambertReg/reference/cv.lambert.md)
+uses five folds by default. Supplying `foldid` makes the partition
+explicit and reusable. Each fit uses four folds for training and the
+remaining fold for validation.
 
 ``` r
 
@@ -277,7 +280,7 @@ unequal sizes. Numerical ties favor the larger fraction.
 
 A custom fractional grid must be positive, strictly decreasing, and no
 larger than one. Absolute penalties can instead be supplied to
-[`lambert()`](../reference/lambert.md):
+[`lambert()`](https://byuzbasi.github.io/lambertReg/reference/lambert.md):
 
 ``` r
 
