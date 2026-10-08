@@ -88,7 +88,9 @@ simulation and QSAR study use their separately recorded designs and inputs.
 citation("lambertReg")
 ```
 
-The source repository provides `CITATION.cff` for software citation. The
-associated manuscript is *The Lambert Penalty: Logarithmic Shrinkage for Sparse
-Regression*, by Bahadir Yuzbasi (2026). Its arXiv identifier and journal DOI
-will be added after they are available.
+The source repository provides `CITATION.cff` with the associated paper as the
+preferred citation. The paper is [*The Lambert Penalty: Logarithmic Shrinkage
+for Sparse Regression*](https://arxiv.org/abs/2610.09627), by Bahadir Yuzbasi
+(2026), arXiv preprint **arXiv:2610.09627** [stat.ME], first posted on
+7 October 2026. `citation("lambertReg")` returns both the software and paper
+citations.

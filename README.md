@@ -97,8 +97,9 @@ citation("lambertReg")
 ## Citation and support
 
 Use `citation("lambertReg")` or the repository's [CITATION.cff](CITATION.cff).
-The associated manuscript is *The Lambert Penalty: Logarithmic Shrinkage for
-Sparse Regression* (Bahadir Yuzbasi, 2026).
+The associated paper is [*The Lambert Penalty: Logarithmic Shrinkage for
+Sparse Regression*](https://arxiv.org/abs/2610.09627) (Bahadir Yuzbasi, 2026),
+arXiv preprint **arXiv:2610.09627** [stat.ME].
 
 [Source code](https://github.com/byuzbasi/lambertReg) ·
 [Report an issue](https://github.com/byuzbasi/lambertReg/issues) ·
