@@ -26,7 +26,24 @@
     {
       "file": "R/performance_acceleration_v1.R",
       "sha256": "41e3f932adfe25aa0f82282904cc6d4e159ddcb25b00edb42152d281eb1d815e"
+    },
+    {
+      "file": "src/lambert_guarded_arma_v2.cpp",
+      "sha256": "239e7084e726945863b7db5b250dac665e595f2674d3aa70658d3ace2a740634"
     }
   ],
-  "adaptation": "Lambert-only extraction with the validated fast C++ kernel, preserving registered interfaces, coordinate order, scalar arithmetic and convergence criteria. Unused SVD omitted, validation scaling cached per fold, and verified identical starts reused with both attempt records retained. No early stopping; no production results included."
+  "adaptation": "Lambert-only extraction with the validated fast C++ kernel, preserving registered interfaces, coordinate order, scalar arithmetic and convergence criteria. Unused SVD omitted, validation scaling cached per fold, and verified identical starts reused with both attempt records retained. No early stopping; no production results included. Ordered guarded v2 caches immutable training data within each path, bounds omitted zero-coordinate updates, and retains every full KKT scan and the original scalar arithmetic. The prior dense kernel remains a private regression reference.",
+  "acceptance_revision": {
+    "date": "2026-10-13",
+    "scope": "post-solver curvature verification",
+    "rule": "Accept only nonnegative_local or empty_active; reject join_unavailable and other unavailable assessments. Apply to full path and every selected CV fold.",
+    "unchanged": "Scalar penalty, coordinate updates, KKT tolerance, coefficients, CV scores and selected grid positions. Frozen research sources and completed study artifacts remain unchanged."
+  },
+  "acceleration_revision": {
+    "date": "2026-10-20",
+    "kernel": "ordered guarded v2",
+    "package_source": "src/lambert_guarded.cpp",
+    "copy": "Verbatim copy of the validated guarded v2 kernel.",
+    "scope": "Computational shortcuts only; formulas, update order, warm/zero starts, lambda grids, stopping controls and curvature acceptance are unchanged."
+  }
 }

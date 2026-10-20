@@ -1,3 +1,22 @@
+# lambertReg 0.1.11
+
+- Cache training-data validation within each regularization path and omit
+  zero-coordinate updates only when a conservative score bound guarantees
+  that the update remains zero. Preserve coordinate order, complete KKT
+  scans, both starting rules, stopping tolerances and the full lambda grid.
+- Reuse unchanged Lambert roots and reconstruct residuals from nonzero
+  coefficients in their original order. Use RcppArmadillo for workspace
+  storage while retaining the reference scalar arithmetic.
+- Add regression checks against the previous solver for paths, cross-validation,
+  numerical failures and predictions.
+
+- Require an assessed nonnegative active-set Hessian, or an empty active set,
+  for path and selected-CV verification. Penalty joins and other unavailable
+  curvature assessments now remain explicitly unverified.
+- Preserve solver coefficients, CV losses, selected grid positions and numerical
+  tolerances. An unverified selected fit is reported without substituting another
+  candidate; prediction and coefficient extraction refuse it.
+
 # lambertReg 0.1.10
 
 - Add a package logo, a local documentation site, a reproducible example gallery,

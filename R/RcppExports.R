@@ -9,3 +9,11 @@ lambert_cd_cpp <- function(X, y, init, lambda, shape, max_sweeps, kkt_tol, pulse
     .Call(`_lambertReg_lambert_cd_cpp`, X, y, init, lambda, shape, max_sweeps, kkt_tol, pulse)
 }
 
+lambert_context_guarded_arma_v2 <- function(X, y) {
+    .Call(`_lambertReg_lambert_context_guarded_arma_v2`, X, y)
+}
+
+lambert_cd_guarded_arma_v2 <- function(X, y, init, lambda, shape, max_sweeps, kkt_tol, pulse, profile = FALSE, cache = NULL) {
+    .Call(`_lambertReg_lambert_cd_guarded_arma_v2`, X, y, init, lambda, shape, max_sweeps, kkt_tol, pulse, profile, cache)
+}
+

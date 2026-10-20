@@ -39,7 +39,10 @@ Only candidates with finite loss in every fold are eligible. Ties within
 \code{lambda.min} is the selected fraction multiplied by the full training
 entry score. A full-training path is fitted at every supplied fraction. Later positions
 provide variable counts for plotting and do not affect CV selection. The
-selected full and fold fits receive the reference active-curvature check.
+selected full and fold fits receive the active-curvature check. Verification
+requires an assessed nonnegative active-set Hessian within tolerance, or an
+empty active set, for every selected fold fit and the full-training fit.
+Unavailable curvature, including a penalty join, rejects the selected fit.
 A rejected selected fit is reported explicitly; another candidate is not
 silently substituted.
 
@@ -74,8 +77,10 @@ magnitudes greater than \eqn{10^{-8}}. Unverified counts are \code{NA}.}
 this is separate from fold-search completeness and selected-fit validity.}
 \item{ok, status}{Logical selected-fit acceptance and character status.
 \code{no_valid_cv} means no candidate had finite loss in all folds.
-Other status values follow \code{\link{lambert}}. A negative-curvature
-selected fold can set \code{status = "negative_curvature"}.}
+Other status values follow \code{\link{lambert}}. A selected fold or full
+fit with negative curvature sets \code{status = "negative_curvature"};
+a join or other unavailable assessment sets \code{join_unavailable} or
+\code{curvature_unavailable}, respectively. Each has \code{ok = FALSE}.}
 \item{partial_search}{Whether any candidate has a nonfinite CV score.
 A partial search can still have \code{ok = TRUE}.}
 \item{cv_diagnostics}{Fold-stacked solver diagnostics, with additional

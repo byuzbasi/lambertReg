@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "Please cite the paper in preferred-citation when using lambertReg; citation('lambertReg') returns both the software and paper citations."
 type: software
 title: "lambertReg: Sparse Gaussian Regression with the Lambert Penalty"
-version: 0.1.10
+version: 0.1.11
 authors:
   - family-names: Yuzbasi
     given-names: Bahadir

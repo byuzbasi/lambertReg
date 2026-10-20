@@ -34,6 +34,21 @@ perf_hessian <- function(beta,prep,lambda,setting,cfg) {
     condition=if(min(ee)>0)max(ee)/min(ee) else Inf)
 }
 
+# Acceptance requires an assessed active Hessian, or an empty active set.
+# Missing/unknown diagnostics never supply a curvature certificate.
+perf_curvature_status <- function(curvature) {
+  if (!length(curvature)) return("curvature_unavailable")
+  statuses <- vapply(curvature, function(h) {
+    s <- h$status
+    if (!is.character(s) || length(s) != 1L || is.na(s)) "unavailable" else s
+  }, character(1))
+  if (any(statuses == "negative_curvature")) return("negative_curvature")
+  if (any(statuses == "join_unavailable")) return("join_unavailable")
+  if (any(!statuses %in% c("nonnegative_local", "empty_active")))
+    return("curvature_unavailable")
+  "verified_stationary"
+}
+
 perf_predict <- function(beta,prep,X)prep$my+drop(sweep(sweep(X,2,prep$mx,"-"),2,prep$sx,"/")%*%beta)
 
 perf_capture <- function(fun) {
@@ -51,6 +66,9 @@ perf_path <- function(prep,setting,cfg,pulse=function(...)NULL,last=cfg$lambda_p
   diagrows<-vector("list",last); attempts<-list(); warm<-numeric(ncol(prep$Z))
   reused<-logical(2L*last)
   total_start<-proc.time()[[3]]
+  # The immutable training data are validated once per path, including CV paths.
+  # Preserve caught solver-error records if context preparation fails.
+  context<-perf_capture(function()lambert_context_guarded_arma_v2(prep$Z,prep$y))
     for(k in seq_along(lambda)) {
       candidates<-list()
       for(start_id in c("warm","zero")) {
@@ -67,8 +85,10 @@ perf_path <- function(prep,setting,cfg,pulse=function(...)NULL,last=cfg$lambda_p
         start<-if(start_id=="warm")warm+0 else numeric(length(warm))
         began<-proc.time()[[3]]
         cap<-perf_capture(function() {
-          lambert_cd_cpp(prep$Z,prep$y,start,lambda[k],1,
-            cfg$max_coordinate_sweeps_per_start,cfg$normalized_kkt_tolerance/2,pulse)
+          if(inherits(context$value,"perf_error"))stop(context$value$message)
+          lambert_cd_guarded_arma_v2(prep$Z,prep$y,start,lambda[k],1,
+            cfg$max_coordinate_sweeps_per_start,cfg$normalized_kkt_tolerance/2,pulse,
+            FALSE,context$value)
         })
         fit<-cap$value; failed<-inherits(fit,"perf_error")
         beta<-if(failed)rep(NA_real_,length(warm)) else as.numeric(fit$beta)

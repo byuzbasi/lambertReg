@@ -62,10 +62,10 @@ cv.lambert <- function(x, y, nfolds = 5L, foldid = NULL,
     selected_curvature <- lapply(seq_len(nfolds), function(f)
       perf_hessian(paths[[f]]$beta[, index], preps[[f]],
         paths[[f]]$diagnostics$lambda[index], setting, cfg))
-    negative <- refit$diagnostics$ok[index] &&
-      any(vapply(selected_curvature, function(h) h$status == "negative_curvature", logical(1)))
-    ok <- refit$verified[index] && !negative
-    status <- if (negative) "negative_curvature" else refit$status[index]
+    status <- if (refit$diagnostics$ok[index])
+      perf_curvature_status(c(selected_curvature, refit$curvature[index])) else
+      refit$status[index]
+    ok <- refit$verified[index] && status == "verified_stationary"
   }
   fit <- structure(list(call = cl, index = index, lambda_fraction = lambda_fraction,
     lambda = fullprep$lambda0 * lambda_fraction,

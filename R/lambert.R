@@ -55,10 +55,12 @@
       min_eigenvalue = NA_real_, condition = NA_real_))
     perf_hessian(path$beta[, k], prep, path$diagnostics$lambda[k], setting, cfg)
   })
-  curvature_status <- vapply(curvature, `[[`, character(1), "status")
-  verified <- path$diagnostics$ok & curvature_status != "negative_curvature"
+  curvature_status <- vapply(curvature, function(h)
+    perf_curvature_status(list(h)), character(1))
+  verified <- path$diagnostics$ok & curvature_status == "verified_stationary"
   status <- path$diagnostics$status
-  status[path$diagnostics$ok & !verified] <- "negative_curvature"
+  rejected <- path$diagnostics$ok & !verified
+  status[rejected] <- curvature_status[rejected]
   beta <- sweep(path$beta, 1L, prep$sx, "/")
   intercept <- prep$my - colSums(sweep(beta, 1L, prep$mx, "*"))
   rownames(beta) <- if (is.null(xnames)) paste0("V", seq_len(nrow(beta))) else xnames

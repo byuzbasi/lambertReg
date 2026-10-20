@@ -17,7 +17,7 @@ in the original units.
 
 ## Installation
 
-R (>= 4.1.0), Rcpp, and an R-compatible C++ compiler are required.
+R (>= 4.1.0), Rcpp, RcppArmadillo, and an R-compatible C++ compiler are required.
 Clone the public repository and install the package:
 
 ```sh
