@@ -60,19 +60,30 @@ p\_\lambda(\|\beta_j\|).\$\$ Here \\y_c\\ is the centered response,
 documented in `lambert_penalty`. The entry score is
 \\\lambda\_{\max}=\max_j\|Z_j^T y_c\|/n\\.
 
-Each path position uses both the previous verified solution and the zero
-vector as starts. Among numerically accepted candidates the smaller
-objective is chosen, with relative tolerance \\10^{-10}\\ and the warm
-start favored in a tie. A failed position resets the next warm start to
-zero. Diagnostics include the normalized KKT residual, objective,
-iterations and both starts. When the two initial vectors are exactly
-identical and the warm-start result passes the solver and independent
-KKT checks, that result is reused for the zero-start record. Distinct
-starts and failed warm starts are solved separately. Curvature on the
-active coordinates is also recorded; a negative local curvature rejects
-verification. At a curvature join this check is reported as unavailable
-rather than as a positive-curvature certificate. These checks do not
-certify a global minimum of a nonconvex objective.
+Each path position uses both the previous solver/KKT-accepted solution
+and the zero vector as starts. Among solver/KKT-accepted candidates the
+smaller objective is chosen, with relative tolerance \\10^{-10}\\ and
+the warm start favored in a tie. A failed position resets the next warm
+start to zero. Diagnostics include the normalized KKT residual,
+objective, iterations and both starts. When the two initial vectors are
+exactly identical and the warm-start result passes the solver and
+independent KKT checks, that result is reused for the zero-start record.
+Distinct starts and failed warm starts are solved separately. The
+compiled solver caches immutable training-data checks within each path.
+A conservative score bound can omit an update of a zero coefficient when
+that update is guaranteed to remain zero; uncertain coordinates are
+updated in the original order. Full KKT and objective checks retain the
+reference cadence: the first three sweeps, every 25th sweep, and the
+final budgeted sweep. Every full KKT check includes every predictor.
+RcppArmadillo supplies working storage; coordinate inner products retain
+the reference scalar summation order. Curvature on the active
+coordinates is then recorded for the retained path. Verification
+requires an assessed nonnegative active-set Hessian within tolerance, or
+an empty active set. Negative curvature and unavailable curvature both
+reject verification. At a curvature join, `status = "join_unavailable"`
+and `verified = FALSE`; coefficients remain available in the returned
+object for diagnosis. These are local numerical checks, not a
+global-minimum certificate.
 
 The numerical controls preserve the reference study's defaults:
 objective increase tolerance \\10^{-9}\\, scaling tolerance
@@ -157,16 +168,20 @@ levels, its components are:
 
 ## Status codes
 
-`verified_stationary` means the solver and KKT checks passed.
-`budget_exhausted` means a start did not converge within its sweep
-budget; `kkt_not_met` means the independent KKT check failed;
-`objective_increased` means the objective monotonicity check failed; and
-`solver_error` records a caught solver error. `negative_curvature`
-rejects an otherwise accepted path solution. Curvature status may also
-be `nonnegative_local`, `empty_active`, `join_unavailable`, or
-`unavailable`. A join or empty active set is not a positive-curvature
-certificate. Unavailable solutions may contain `NA` coefficients and
-must not be used for prediction.
+In `diagnostics`, `verified_stationary` means the solver and KKT checks
+passed. The top-level `status` and `verified` additionally require the
+active-curvature acceptance rule above. `budget_exhausted` means a start
+did not converge within its sweep budget; `kkt_not_met` means the
+independent KKT check failed; `objective_increased` means the objective
+monotonicity check failed; and `solver_error` records a caught solver
+error. `negative_curvature` rejects an otherwise accepted path solution.
+Curvature status may also be `nonnegative_local`, `empty_active`,
+`join_unavailable`, or `unavailable`. A join yields top-level
+`join_unavailable`; other missing or unknown assessments yield
+`curvature_unavailable`. Both set `verified = FALSE`. An empty active
+set passes the acceptance rule without asserting strictly positive
+curvature. Unverified solutions may have finite coefficients or `NA`
+values and are refused by the prediction and coefficient methods.
 
 ## See also
 

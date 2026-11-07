@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Data and reproducibility • lambertReg</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
-<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
@@ -18,7 +18,6 @@
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Data and reproducibility">
-<link rel="canonical" href="https://byuzbasi.github.io/lambertReg/articles/reproduction.html">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -28,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">lambertReg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,6 +74,46 @@
 
     
     
+<div class="section level2">
+<h2 id="manuscript-data-and-run-code">Manuscript data and run code<a class="anchor" aria-label="anchor" href="#manuscript-data-and-run-code"></a>
+</h2>
+<p>The <a href="https://github.com/byuzbasi/lambertReg/tree/main/reproduction" class="external-link">public
+study directory</a> contains the two real-data inputs, attribution and
+checksums, and commands for the simulation and data analyses.</p>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Workflow</th>
+<th align="left">Design</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="https://github.com/byuzbasi/lambertReg/tree/main/reproduction/simulation" class="external-link">Simulation</a></td>
+<td align="left">52 CV scenarios, a 16-scenario paired
+information-criterion comparison, and a known-support Oracle
+reference.</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://github.com/byuzbasi/lambertReg/tree/main/reproduction/qsar" class="external-link">QSAR
+aquatic toxicity</a></td>
+<td align="left">546 observations and eight descriptors, 100 repetitions
+of five-fold evaluation with training-only tuning.</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://github.com/byuzbasi/lambertReg/tree/main/reproduction/magic-maize" class="external-link">MAGIC
+maize plant height</a></td>
+<td align="left">529 lines and 54,234 starting markers, 50 random
+423/106 splits, and five-fold CV inside each training set.</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://github.com/byuzbasi/lambertReg/tree/main/reproduction" class="external-link">run
+instructions</a> identify dependencies and separate smoke checks from
+the full study. The gallery below uses a separate synthetic example.</p>
+</div>
 <div class="section level2">
 <h2 id="know-your-inputs">Know your inputs<a class="anchor" aria-label="anchor" href="#know-your-inputs"></a>
 </h2>
@@ -212,7 +251,7 @@ This is one small example; it does not launch a Monte Carlo study.</p>
 <span><span class="va">manifest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"manifest.csv"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out</span>, <span class="va">manifest</span><span class="op">$</span><span class="va">file</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.info.html" class="external-link">file.info</a></span><span class="op">(</span><span class="va">paths</span><span class="op">)</span><span class="op">$</span><span class="va">size</span> <span class="op">==</span> <span class="va">manifest</span><span class="op">$</span><span class="va">bytes</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">hashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">paths</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu">digest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/digest/man/digest.html" class="external-link">digest</a></span><span class="op">(</span>file <span class="op">=</span> <span class="va">p</span>, algo <span class="op">=</span> <span class="st">"sha256"</span><span class="op">)</span>, <span class="st">""</span><span class="op">)</span></span>
+<span><span class="va">hashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">paths</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu">digest</span><span class="fu">::</span><span class="fu"><a href="https://eddelbuettel.github.io/digest/man/digest.html" class="external-link">digest</a></span><span class="op">(</span>file <span class="op">=</span> <span class="va">p</span>, algo <span class="op">=</span> <span class="st">"sha256"</span><span class="op">)</span>, <span class="st">""</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="va">hashes</span><span class="op">)</span>, <span class="va">manifest</span><span class="op">$</span><span class="va">sha256</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -223,8 +262,8 @@ the training/test split, <code>foldid</code>, penalty grid, fitting
 controls, and software versions. Preserve raw data separately. Use an
 independent test sample or outer CV for evaluation; the tuning minimum
 is not an external prediction error. This guide reproduces the package
-demonstration. The manuscript’s simulation and QSAR study use their
-separately recorded designs and inputs.</p>
+demonstration. The manuscript workflows use the designs and inputs
+linked above.</p>
 </div>
 <div class="section level2">
 <h2 id="cite-the-software">Cite the software<a class="anchor" aria-label="anchor" href="#cite-the-software"></a>
@@ -234,7 +273,7 @@ separately recorded designs and inputs.</p>
 <pre><code><span><span class="co">## To cite package 'lambertReg' in publications use:</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##   Yuzbasi B (2026). lambertReg: Sparse Gaussian Regression with the</span></span>
-<span><span class="co">##   Lambert Penalty. R package version 0.1.10</span></span>
+<span><span class="co">##   Lambert Penalty. R package version 0.1.11</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##   Yuzbasi B (2026). The Lambert Penalty: Logarithmic Shrinkage for</span></span>
 <span><span class="co">##   Sparse Regression. arXiv preprint arXiv:2610.09627 [stat.ME].</span></span>

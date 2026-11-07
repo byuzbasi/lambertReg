@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>An Introduction to lambertReg • lambertReg</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
-<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
@@ -18,8 +18,6 @@
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="An Introduction to lambertReg">
-<link rel="canonical" href="https://byuzbasi.github.io/lambertReg/articles/introduction.html">
-<meta property="og:url" content="https://byuzbasi.github.io/lambertReg/articles/introduction.html">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -29,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">lambertReg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,8 +103,8 @@ minimum is not guaranteed for this nonconvex objective.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>The package requires R (&gt;= 4.1.0), Rcpp, and an R-compatible C++
-compiler. Install from a local clone of the <a href="https://github.com/byuzbasi/lambertReg" class="external-link">GitHub repository</a>:</p>
+<p>The package requires R (&gt;= 4.1.0), Rcpp, RcppArmadillo, and an
+R-compatible C++ compiler. Install from a local clone of the <a href="https://github.com/byuzbasi/lambertReg" class="external-link">GitHub repository</a>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/byuzbasi/lambertReg.git</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">R</span> CMD INSTALL lambertReg</span></code></pre></div>
 <p>To build this guide as an installed vignette, use
@@ -508,16 +506,24 @@ standardized coordinate of unit curvature.</p>
 details, inspect <code>cv_diagnostics</code> or
 <code>lambert.fit$diagnostics</code>. Unverified fits cannot be used by
 <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> or <code><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef()</a></code> and appear as gaps in path
-plots.</p>
+plots. Selected fits require an assessed nonnegative active Hessian, or
+an empty active set, in the full fit and each selected CV fit. At
+penalty joins, unavailable curvature leaves the fit unverified; its
+coefficients and loss remain available for diagnosis.</p>
 <p>Each penalty position considers warm and zero starts, retaining the
-verified candidate with the lower objective. Exactly identical initial
-vectors can share a verified solve; the <code>executed</code> and
-<code>reused</code> columns in <code>attempts</code> record this.
-<code>max_sweeps</code> and <code>kkt_tol</code> control the iteration
-budget and normalized stationarity tolerance. The default values are
-10,000 sweeps and <span class="math inline">10^{-7}</span>;
-active-curvature diagnostics provide an additional check. The help pages
-describe the acceptance criteria.</p>
+candidate with the lower objective after solver and KKT checks. Exactly
+identical initial vectors can share a solver/KKT-accepted solve; the
+<code>executed</code> and <code>reused</code> columns in
+<code>attempts</code> record this. <code>max_sweeps</code> and
+<code>kkt_tol</code> control the iteration budget and normalized
+stationarity tolerance. The default values are 10,000 sweeps and <span class="math inline">10^{-7}</span>; active-curvature diagnostics provide
+an additional check. The help pages describe the acceptance
+criteria.</p>
+<p>The compiled solver reuses training-data checks within a path and
+skips a zero-coordinate update only when a conservative score bound
+certifies that it will remain zero. Full KKT scans still examine every
+predictor. Coordinate order, stopping tolerances, and the complete
+penalty grid are preserved.</p>
 <p>Inputs must be finite dense numeric matrices with columns that vary
 in every training sample. The current interface supports Gaussian
 responses; it does not support observation weights or automatic

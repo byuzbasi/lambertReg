@@ -25,8 +25,8 @@ nonconvex objective.
 
 ## Installation
 
-The package requires R (\>= 4.1.0), Rcpp, and an R-compatible C++
-compiler. Install from a local clone of the [GitHub
+The package requires R (\>= 4.1.0), Rcpp, RcppArmadillo, and an
+R-compatible C++ compiler. Install from a local clone of the [GitHub
 repository](https://github.com/byuzbasi/lambertReg):
 
 ``` bash
@@ -336,16 +336,25 @@ For details, inspect `cv_diagnostics` or `lambert.fit$diagnostics`.
 Unverified fits cannot be used by
 [`predict()`](https://rdrr.io/r/stats/predict.html) or
 [`coef()`](https://rdrr.io/r/stats/coef.html) and appear as gaps in path
-plots.
+plots. Selected fits require an assessed nonnegative active Hessian, or
+an empty active set, in the full fit and each selected CV fit. At
+penalty joins, unavailable curvature leaves the fit unverified; its
+coefficients and loss remain available for diagnosis.
 
 Each penalty position considers warm and zero starts, retaining the
-verified candidate with the lower objective. Exactly identical initial
-vectors can share a verified solve; the `executed` and `reused` columns
-in `attempts` record this. `max_sweeps` and `kkt_tol` control the
-iteration budget and normalized stationarity tolerance. The default
-values are 10,000 sweeps and 10^{-7}; active-curvature diagnostics
-provide an additional check. The help pages describe the acceptance
-criteria.
+candidate with the lower objective after solver and KKT checks. Exactly
+identical initial vectors can share a solver/KKT-accepted solve; the
+`executed` and `reused` columns in `attempts` record this. `max_sweeps`
+and `kkt_tol` control the iteration budget and normalized stationarity
+tolerance. The default values are 10,000 sweeps and 10^{-7};
+active-curvature diagnostics provide an additional check. The help pages
+describe the acceptance criteria.
+
+The compiled solver reuses training-data checks within a path and skips
+a zero-coordinate update only when a conservative score bound certifies
+that it will remain zero. Full KKT scans still examine every predictor.
+Coordinate order, stopping tolerances, and the complete penalty grid are
+preserved.
 
 Inputs must be finite dense numeric matrices with columns that vary in
 every training sample. The current interface supports Gaussian

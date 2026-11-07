@@ -1,5 +1,23 @@
 # Data and reproducibility
 
+## Manuscript data and run code
+
+The [public study
+directory](https://github.com/byuzbasi/lambertReg/tree/main/reproduction)
+contains the two real-data inputs, attribution and checksums, and
+commands for the simulation and data analyses.
+
+| Workflow | Design |
+|:---|:---|
+| [Simulation](https://github.com/byuzbasi/lambertReg/tree/main/reproduction/simulation) | 52 CV scenarios, a 16-scenario paired information-criterion comparison, and a known-support Oracle reference. |
+| [QSAR aquatic toxicity](https://github.com/byuzbasi/lambertReg/tree/main/reproduction/qsar) | 546 observations and eight descriptors, 100 repetitions of five-fold evaluation with training-only tuning. |
+| [MAGIC maize plant height](https://github.com/byuzbasi/lambertReg/tree/main/reproduction/magic-maize) | 529 lines and 54,234 starting markers, 50 random 423/106 splits, and five-fold CV inside each training set. |
+
+The [run
+instructions](https://github.com/byuzbasi/lambertReg/tree/main/reproduction)
+identify dependencies and separate smoke checks from the full study. The
+gallery below uses a separate synthetic example.
+
 ## Know your inputs
 
 [`lambert()`](https://byuzbasi.github.io/lambertReg/reference/lambert.md)
@@ -86,8 +104,7 @@ training/test split, `foldid`, penalty grid, fitting controls, and
 software versions. Preserve raw data separately. Use an independent test
 sample or outer CV for evaluation; the tuning minimum is not an external
 prediction error. This guide reproduces the package demonstration. The
-manuscript’s simulation and QSAR study use their separately recorded
-designs and inputs.
+manuscript workflows use the designs and inputs linked above.
 
 ## Cite the software
 
@@ -99,7 +116,7 @@ citation("lambertReg")
     ## To cite package 'lambertReg' in publications use:
     ## 
     ##   Yuzbasi B (2026). lambertReg: Sparse Gaussian Regression with the
-    ##   Lambert Penalty. R package version 0.1.10
+    ##   Lambert Penalty. R package version 0.1.11
     ## 
     ##   Yuzbasi B (2026). The Lambert Penalty: Logarithmic Shrinkage for
     ##   Sparse Regression. arXiv preprint arXiv:2610.09627 [stat.ME].

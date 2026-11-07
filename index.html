@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Sparse Gaussian Regression with the Lambert Penalty • lambertReg</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" sizes="any" href="favicon.ico">
 <link rel="manifest" href="site.webmanifest">
@@ -21,7 +21,6 @@
 <meta name="description" content="Fits sparse Gaussian regression using a bounded Lambert penalty with fixed shape and an explicit coordinate update. Provides regularization paths, training-only cross-validation, original-scale predictions, and numerical diagnostics. Fits are stationary solutions rather than certified global minimizers of the nonconvex objective.">
 <meta property="og:description" content="Fits sparse Gaussian regression using a bounded Lambert penalty with fixed shape and an explicit coordinate update. Provides regularization paths, training-only cross-validation, original-scale predictions, and numerical diagnostics. Fits are stationary solutions rather than certified global minimizers of the nonconvex objective.">
 <meta property="og:image" content="https://byuzbasi.github.io/lambertReg/logo.svg">
-<link rel="canonical" href="https://byuzbasi.github.io/lambertReg/index.html">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -31,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="index.html">lambertReg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +70,7 @@
 </div>
 <p><img src="reference/figures/banner.svg" class="showcase-banner" width="1400" alt="lambertReg: Sparse Gaussian regression. A path from shrinkage to selection."></p>
 <p><strong>lambertReg</strong> fits sparse Gaussian regression with the Lambert penalty. A fixed penalty shape and training-only cross-validation give a direct workflow: fit a path, choose the penalty strength, inspect selected variables, and predict in the original units.</p>
-<p><a href="https://byuzbasi.github.io/lambertReg/">Documentation and examples</a></p>
+<p><a href="https://byuzbasi.github.io/lambertReg/">Documentation and examples</a> · <a href="https://github.com/byuzbasi/lambertReg/tree/main/reproduction" class="external-link">Manuscript data and run code</a></p>
 <div class="showcase-cards">
 <div class="showcase-card">
 <strong>Fit a path</strong>
@@ -95,12 +94,12 @@ Extract selected coefficients, make predictions, and check numerical diagnostics
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>R (&gt;= 4.1.0), Rcpp, and an R-compatible C++ compiler are required. Clone the public repository and install the package:</p>
+<p>R (&gt;= 4.1.0), Rcpp, RcppArmadillo, and an R-compatible C++ compiler are required. Clone the public repository and install the package:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/byuzbasi/lambertReg.git</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">R</span> CMD INSTALL lambertReg</span></code></pre></div>
 <p>To include the worked vignette, make knitr, rmarkdown, and Pandoc available, then build before installing:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">R</span> CMD build lambertReg</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">R</span> CMD INSTALL lambertReg_0.1.10.tar.gz</span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">R</span> CMD INSTALL lambertReg_0.1.11.tar.gz</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="a-small-example">A small example<a class="anchor" aria-label="anchor" href="#a-small-example"></a>
@@ -169,6 +168,7 @@ Extract selected coefficients, make predictions, and check numerical diagnostics
 <div class="section level2">
 <h2 id="guides-and-reproducibility">Guides and reproducibility<a class="anchor" aria-label="anchor" href="#guides-and-reproducibility"></a>
 </h2>
+<p><a href="https://github.com/byuzbasi/lambertReg/tree/main/reproduction" class="external-link">Run the manuscript analyses</a> using the licensed QSAR aquatic toxicity and MAGIC maize data, or regenerate the simulated samples from the study’s frozen seeds.</p>
 <ul>
 <li>
 <a href="articles/introduction.html">Getting started</a>: fitting, tuning, prediction, and diagnostics.</li>

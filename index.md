@@ -8,7 +8,9 @@ A fixed penalty shape and training-only cross-validation give a direct
 workflow: fit a path, choose the penalty strength, inspect selected
 variables, and predict in the original units.
 
-[Documentation and examples](https://byuzbasi.github.io/lambertReg/)
+[Documentation and examples](https://byuzbasi.github.io/lambertReg/) ·
+[Manuscript data and run
+code](https://github.com/byuzbasi/lambertReg/tree/main/reproduction)
 
 **Fit a path**
 
@@ -26,8 +28,8 @@ diagnostics.
 
 ## Installation
 
-R (\>= 4.1.0), Rcpp, and an R-compatible C++ compiler are required.
-Clone the public repository and install the package:
+R (\>= 4.1.0), Rcpp, RcppArmadillo, and an R-compatible C++ compiler are
+required. Clone the public repository and install the package:
 
 ``` sh
 git clone https://github.com/byuzbasi/lambertReg.git
@@ -39,7 +41,7 @@ available, then build before installing:
 
 ``` sh
 R CMD build lambertReg
-R CMD INSTALL lambertReg_0.1.10.tar.gz
+R CMD INSTALL lambertReg_0.1.11.tar.gz
 ```
 
 ## A small example
@@ -96,21 +98,26 @@ interpreting a fit.
 
 ## Guides and reproducibility
 
+[Run the manuscript
+analyses](https://github.com/byuzbasi/lambertReg/tree/main/reproduction)
+using the licensed QSAR aquatic toxicity and MAGIC maize data, or
+regenerate the simulated samples from the study’s frozen seeds.
+
 - [Getting
-  started](https://byuzbasi.github.io/lambertReg/articles/introduction.md):
+  started](https://byuzbasi.github.io/lambertReg/articles/introduction.html):
   fitting, tuning, prediction, and diagnostics.
 - [Example
-  gallery](https://byuzbasi.github.io/lambertReg/articles/gallery.md):
+  gallery](https://byuzbasi.github.io/lambertReg/articles/gallery.html):
   CV and coefficient-path plots.
 - [Data and reproduction
-  guide](https://byuzbasi.github.io/lambertReg/articles/reproduction.md):
+  guide](https://byuzbasi.github.io/lambertReg/articles/reproduction.html):
   input definitions, saved folds, and reproducible outputs.
 - [Runnable
   example](https://byuzbasi.github.io/lambertReg/examples/showcase.R):
   the seed-42 demonstration, including input data, plots, and a SHA-256
   manifest.
 - [Validation
-  scope](https://byuzbasi.github.io/lambertReg/articles/validation.md)
+  scope](https://byuzbasi.github.io/lambertReg/articles/validation.html)
   and [contribution
   guide](https://byuzbasi.github.io/lambertReg/CONTRIBUTING.md).
 
@@ -131,6 +138,6 @@ Sparse Regression*](https://arxiv.org/abs/2610.09627) (Bahadir Yuzbasi,
 
 [Source code](https://github.com/byuzbasi/lambertReg) · [Report an
 issue](https://github.com/byuzbasi/lambertReg/issues) · [Version
-notes](https://byuzbasi.github.io/lambertReg/news/index.md)
+notes](https://byuzbasi.github.io/lambertReg/NEWS.md)
 
 GPL-3. Maintainer: Bahadir Yuzbasi <b.yzb@hotmail.com>.

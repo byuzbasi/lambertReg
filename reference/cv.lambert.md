@@ -62,9 +62,13 @@ candidates with finite loss in every fold are eligible. Ties within
 `lambda.min` is the selected fraction multiplied by the full training
 entry score. A full-training path is fitted at every supplied fraction.
 Later positions provide variable counts for plotting and do not affect
-CV selection. The selected full and fold fits receive the reference
-active-curvature check. A rejected selected fit is reported explicitly;
-another candidate is not silently substituted.
+CV selection. The selected full and fold fits receive the
+active-curvature check. Verification requires an assessed nonnegative
+active-set Hessian within tolerance, or an empty active set, for every
+selected fold fit and the full-training fit. Unavailable curvature,
+including a penalty join, rejects the selected fit. A rejected selected
+fit is reported explicitly; another candidate is not silently
+substituted.
 
 An incomplete search is flagged by `partial_search`; it does not imply
 that the selected fit failed. Solver convergence and curvature status
@@ -132,8 +136,10 @@ Components are:
   means no candidate had finite loss in all folds. Other status values
   follow
   [`lambert`](https://byuzbasi.github.io/lambertReg/reference/lambert.md).
-  A negative-curvature selected fold can set
-  `status = "negative_curvature"`.
+  A selected fold or full fit with negative curvature sets
+  `status = "negative_curvature"`; a join or other unavailable
+  assessment sets `join_unavailable` or `curvature_unavailable`,
+  respectively. Each has `ok = FALSE`.
 
 - partial_search:
 
