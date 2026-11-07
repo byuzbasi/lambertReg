@@ -12,8 +12,8 @@ penalties, support counts, both starting points, preprocessing, numerical
 status, and original-scale predictions. Plot checks cover stored-fit displays
 and gaps for unavailable fits.
 
-The latest local validation for version 0.1.10 passed 142 targeted checks and
-`R CMD check` with status OK. These are development checks, not CRAN acceptance
+The local validation for version 0.1.11 passed 15 exact cross-version checks and
+`R CMD check` with no errors, warnings, or notes. These are development checks, not CRAN acceptance
 or a guarantee of a global minimum. The documentation examples are also
 executed during the local site build.
 

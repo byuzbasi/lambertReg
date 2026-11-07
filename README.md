@@ -7,7 +7,8 @@ A fixed penalty shape and training-only cross-validation give a direct workflow:
 fit a path, choose the penalty strength, inspect selected variables, and predict
 in the original units.
 
-[Documentation and examples](https://byuzbasi.github.io/lambertReg/)
+[Documentation and examples](https://byuzbasi.github.io/lambertReg/) ·
+[Manuscript data and run code](https://github.com/byuzbasi/lambertReg/tree/main/reproduction)
 
 <div class="showcase-cards">
 <div class="showcase-card"><strong>Fit a path</strong><p>Explore how coefficients change as regularization varies.</p></div>
@@ -30,7 +31,7 @@ then build before installing:
 
 ```sh
 R CMD build lambertReg
-R CMD INSTALL lambertReg_0.1.10.tar.gz
+R CMD INSTALL lambertReg_0.1.11.tar.gz
 ```
 
 ## A small example
@@ -81,6 +82,11 @@ stored results. The nonconvex solver seeks a stationary solution; inspect
 `fit$ok`, `fit$partial_search`, and `fit$cv_diagnostics` before interpreting a fit.
 
 ## Guides and reproducibility
+
+[Run the manuscript analyses](https://github.com/byuzbasi/lambertReg/tree/main/reproduction)
+using the licensed QSAR aquatic toxicity and MAGIC maize data, or regenerate
+the simulated samples from the study's frozen seeds.
+
 
 - [Getting started](vignettes/introduction.Rmd): fitting, tuning, prediction, and diagnostics.
 - [Example gallery](vignettes/articles/gallery.Rmd): CV and coefficient-path plots.

@@ -1,0 +1,14 @@
+{
+  "schema": "uci_qsar_aquatic_acquisition_v1",
+  "dataset_id": 505,
+  "source_url": "https://archive.ics.uci.edu/static/public/505/qsar%2Baquatic%2Btoxicity.zip",
+  "archive_member": "qsar_aquatic_toxicity.csv",
+  "archive_sha256": "09e45d1b2b66c5bc871a64b87ad40e452623e1c2dc375e517e4769379a9db9cd",
+  "csv_sha256": "cee55fadc4b021d3ff1567612a7ac32d7e212845a4ca9eb3ef983b78e0c17856",
+  "observations": 546,
+  "predictors": 8,
+  "response_column": 9,
+  "delimiter": ";",
+  "header": false,
+  "response_transformation": "none"
+}

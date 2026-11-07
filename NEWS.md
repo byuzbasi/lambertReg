@@ -1,5 +1,7 @@
 # lambertReg 0.1.11
 
+- Add the manuscript data and portable run instructions to the public repository.
+
 - Cache training-data validation within each regularization path and omit
   zero-coordinate updates only when a conservative score bound guarantees
   that the update remains zero. Preserve coordinate order, complete KKT

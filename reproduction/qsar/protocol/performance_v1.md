@@ -1,0 +1,40 @@
+# Lambert tahmincisi: performans protokolü v1
+
+```json
+{
+  "protocol": "performance_v1",
+  "status": "proposed_for_implementation",
+  "n_train": 200,
+  "p": [100, 400],
+  "rho": [0, 0.5, 0.9],
+  "snr": [1, 5],
+  "profiles": ["equal", "heterogeneous"],
+  "support_size": 10,
+  "support_indices": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  "signs": [1, 1, 1, 1, 1, -1, -1, -1, -1, -1],
+  "magnitudes_equal": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  "magnitudes_heterogeneous": [4, 3, 2, 1.5, 1, 0.7, 0.5, 0.3, 0.2, 0.1],
+  "beta_l2_norm": 1,
+  "n_test": 2000,
+  "folds": 5,
+  "lambda_points": 60,
+  "lambda_fraction_log10_limits": [0, -3],
+  "ridge_factor_log10_limits": [3, -4],
+  "lambert_shapes": [1, 1.5, 2],
+  "elastic_net_alpha": [0, 0.25, 0.5, 0.75, 1],
+  "mcp_gamma": [1.5, 3, 6],
+  "scad_a": [2.5, 3.7, 6],
+  "methods": ["lambert_cv", "lasso", "ridge", "elastic_net", "mcp", "scad", "lambert_c1", "lambert_c1p5", "lambert_c2"],
+  "pilot_repetitions": 20,
+  "confirmation_repetitions": 200,
+  "master_seed": 2026090401,
+  "pilot_stream_offset": 0,
+  "confirmation_stream_offset": 1000,
+  "smoke_stream_indices": [10001, 10002, 10003, 10004],
+  "max_coordinate_sweeps_per_start": 10000,
+  "normalized_kkt_tolerance": 1e-7,
+  "support_reporting_tolerance": 1e-8,
+  "main_comparisons": 120,
+  "familywise_alpha": 0.05
+}
+```

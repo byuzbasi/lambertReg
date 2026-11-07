@@ -11,3 +11,6 @@
 .Rproj.user/
 inst/doc/
 docs/
+
+/reproduction/**/outputs/
+/reproduction/**/runs/
