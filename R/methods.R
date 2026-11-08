@@ -167,13 +167,31 @@ plot.lambert <- function(x, ..., xaxis = c("lambda", "fraction"),
     label = ifelse(is.na(nzero), "--", as.character(nzero)))
 }
 
+.lr_cv_count_indices <- function(x, labels, limits, maximum, selected, cex) {
+  if (is.infinite(maximum)) return(seq_along(x))
+  visible <- which(x >= min(limits) & x <= max(limits))
+  if (!length(visible)) return(integer())
+  visible <- visible[order(x[visible])]
+  steps <- round(seq(1, length(visible), length.out = min(maximum, length(visible))))
+  shown <- intersect(selected, visible)
+  widths <- abs(graphics::strwidth(labels, cex = cex))
+  gap <- .6 * abs(diff(limits))/maximum
+  for (i in setdiff(visible[steps], shown)) {
+    if (length(shown) >= maximum) break
+    separation <- pmax(gap, .6 * (widths[i] + widths[shown]))
+    if (all(abs(x[i] - x[shown]) >= separation)) shown <- c(shown, i)
+  }
+  shown[order(x[shown])]
+}
+
 plot.cv.lambert <- function(x, xaxis = c("fraction", "lambda"),
                             show_nzero = TRUE, label_cex = NULL,
                             col = "#315C76", selected_col = "#C65D32",
                             main = NULL, xlab = NULL,
                             ylab = "Cross-validation MSE", error_bars = TRUE,
                             bar_col = "#B5C4CE", style = c("detailed", "paper"),
-                            type = c("cv", "coefficients"), labels = FALSE, ...) {
+                            type = c("cv", "coefficients"), labels = FALSE, ...,
+                            max_nzero_labels = Inf) {
   xaxis <- match.arg(xaxis); style <- match.arg(style); type <- match.arg(type)
   if (type == "coefficients") {
     if (is.null(x$lambert.fit)) stop("This CV object has no stored coefficient path.")
@@ -191,6 +209,10 @@ plot.cv.lambert <- function(x, xaxis = c("fraction", "lambda"),
   if (missing(main) && style == "detailed") main <- "Lambert cross-validation"
   if (!is.logical(show_nzero) || length(show_nzero) != 1L || is.na(show_nzero))
     stop("show_nzero must be TRUE or FALSE.")
+  if (!is.numeric(max_nzero_labels) || length(max_nzero_labels) != 1L ||
+      is.na(max_nzero_labels) || max_nzero_labels < 1 ||
+      max_nzero_labels != floor(max_nzero_labels))
+    stop("max_nzero_labels must be a positive integer or Inf.")
   if (!is.logical(error_bars) || length(error_bars) != 1L || is.na(error_bars))
     stop("error_bars must be TRUE or FALSE.")
   if (!is.null(label_cex)) .lr_positive(label_cex, "label_cex")
@@ -247,9 +269,10 @@ plot.cv.lambert <- function(x, xaxis = c("fraction", "lambda"),
       warning("The CV-selected full-training fit is unverified; inspect status before prediction.", call. = FALSE)
   }
   if (show_nzero) {
+    usr <- graphics::par("usr")
     if (is.null(label_cex)) {
       label_cex <- .8
-      if (nrow(d) > 1L) {
+      if (is.infinite(max_nzero_labels) && nrow(d) > 1L) {
         ord <- order(d$x)
         widths <- abs(graphics::strwidth(d$label[ord], cex = 1))
         spacing <- diff(d$x[ord])
@@ -257,11 +280,12 @@ plot.cv.lambert <- function(x, xaxis = c("fraction", "lambda"),
         label_cex <- min(.8, .85 * min(spacing/needed))
       }
     }
-    # Draw every label (including repeats); axis() can silently thin labels.
-    usr <- graphics::par("usr")
+    shown <- .lr_cv_count_indices(d$x, d$label, usr[1:2], max_nzero_labels,
+      if (selected) chosen else integer(), label_cex)
     top <- usr[4] + .8 * graphics::strheight("M", cex = label_cex)
-    graphics::text(d$x, top, labels = d$label, srt = 0, adj = c(.5, 0),
-      cex = label_cex, col = "black", xpd = NA)
+    if (length(shown))
+      graphics::text(d$x[shown], top, labels = d$label[shown], srt = 0,
+        adj = c(.5, 0), cex = label_cex, col = "black", xpd = NA)
     graphics::mtext("Selected variables", side = 3, line = 1.2, cex = .85, col = "black")
   }
   if (is.null(xlab)) xlab <- if (xaxis == "fraction")

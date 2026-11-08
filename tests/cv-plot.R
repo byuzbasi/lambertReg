@@ -31,6 +31,19 @@ par_before <- graphics::par(c("mar", "mgp", "las", "col.axis"))
 stopifnot(identical(plot(cv), cv))
 stopifnot(identical(graphics::par(c("mar", "mgp", "las", "col.axis")), par_before))
 plot(cv, xaxis = "lambda", main = "Custom CV", col = "navy", label_cex = .7)
+# Display thinning keeps an off-grid selected label and respects a zoomed axis.
+stopifnot(identical(plot(cv, max_nzero_labels = 4), cv))
+label_indices <- getFromNamespace(".lr_cv_count_indices", "lambertReg")
+penalties <- seq(0, -7, length.out = 60)
+counts <- rep("12", length(penalties))
+shown <- label_indices(penalties, counts, c(-7, 0), 10, 23L, .8)
+zoom <- label_indices(penalties, counts, c(0, -3), 6, 23L, .8)
+stopifnot(23L %in% shown, length(shown) <= 10, all(diff(penalties[shown]) > 0),
+  23L %in% zoom, length(zoom) <= 6, all(penalties[zoom] >= -3),
+  identical(label_indices(penalties, counts, c(-7, 0), 1, 23L, .8), 23L),
+  identical(label_indices(penalties, counts, c(-7, 0), Inf, 23L, .8),
+    seq_along(penalties)),
+  inherits(try(plot(cv, max_nzero_labels = 2.5), silent = TRUE), "try-error"))
 plot(cv, show_nzero = FALSE)
 plot(cv, error_bars = FALSE)
 # Legacy objects and unverified positions cannot be reported as zero counts.

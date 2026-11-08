@@ -48,7 +48,7 @@ foldid <- sample(rep(1:5, length.out = length(train)))
 fit <- cv.lambert(x[train, ], y[train], foldid = foldid)
 coef(fit)
 predict(fit, newx = x[-train, ])
-plot(fit)
+plot(fit, max_nzero_labels = 10)
 ```
 
 The 20 held-out observations do not enter scaling or tuning. The default CV
@@ -60,7 +60,8 @@ scale. `fit$lambda.min` is the selected penalty for the full training sample.
 
 This is a reproducible synthetic demonstration, not an empirical result from
 the paper. Error bars show one descriptive fold-based standard error.
-The orange marker identifies the CV-selected penalty.
+The orange marker identifies the CV-selected penalty. The upper row labels
+up to ten positions, including the selected penalty.
 
 ## Paths, predictions, and penalty tools
 
@@ -73,7 +74,7 @@ The orange marker identifies the CV-selected penalty.
 | Evaluate the penalty or scalar update | `lambert_penalty()`, `lambert_threshold()` |
 
 ```r
-plot(fit, style = "paper")
+plot(fit, style = "paper", max_nzero_labels = 10)
 plot(fit, type = "coefficients", labels = TRUE)
 ```
 

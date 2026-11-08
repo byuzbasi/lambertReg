@@ -1,5 +1,7 @@
 # lambertReg 0.1.11
 
+- Add an optional limit for CV count labels and use it in the package showcase.
+
 - Add the manuscript data and portable run instructions to the public repository.
 
 - Cache training-data validation within each regularization path and omit

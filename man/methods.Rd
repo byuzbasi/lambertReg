@@ -27,7 +27,8 @@ inspect numerical status, or plot fitted paths and cross-validation scores.}
                          main = NULL, xlab = NULL,
                          ylab = "Cross-validation MSE", error_bars = TRUE,
                          bar_col = "#B5C4CE", style = c("detailed", "paper"),
-                         type = c("cv", "coefficients"), labels = FALSE, ...)
+                         type = c("cv", "coefficients"), labels = FALSE, ...,
+                         max_nzero_labels = Inf)
 }
 \arguments{
 \item{object, x}{A fitted \code{lambert} or \code{cv.lambert} object.}
@@ -40,10 +41,14 @@ positions. There is no coefficient interpolation between path positions.}
 levels. CV objects default to fractions; path objects default to absolute lambda. CV candidates still use fold-specific entry
 scores in both displays.}
 \item{show_nzero}{Display the full-training selected-variable counts above
-every path position, excluding the intercept.}
+the path, excluding the intercept.}
 \item{label_cex}{Optional positive character expansion for the unrotated upper
 labels. The default adapts to label widths and spacing. For long paths,
 export a wider plot to keep all labels legible.}
+\item{max_nzero_labels}{Maximum number of upper count labels. The default
+\code{Inf} shows all positions. A positive integer displays a spaced subset
+and keeps the CV-selected position when visible. This changes only the
+labels, leaving the CV curve and error bars at every available position.}
 \item{error_bars}{Draw descriptive mean plus/minus one fold-based standard
 error at each eligible CV position. Defaults to TRUE.}
 \item{bar_col}{Color of the vertical error bars and caps.}
@@ -83,8 +88,7 @@ view reports the selected full-training lambda, mean CV MSE and selected-variabl
 count. The paper style omits these annotations while retaining error bars and
 upper counts. The upper labels show
 counts from verified full-training models with original-scale coefficient
-magnitudes greater than \eqn{10^{-8}}. Every path position is labeled; repeated
-counts are retained. Unverified or absent counts appear as two dashes, never
+magnitudes greater than \eqn{10^{-8}}. By default, every path position is labeled and repeated counts are retained. Unverified or absent counts appear as two dashes, never
 as zeros. Older CV objects without counts still plot with a warning and
 unavailable upper labels; no fitting is triggered. An unverified selected
 full-training fit produces a warning. Incomplete CV candidates are omitted

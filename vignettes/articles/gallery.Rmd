@@ -24,11 +24,12 @@ simulation summaries or real-data results from the manuscript.
 ## Choose a penalty
 
 ```{r cv, fig.alt="Cross-validation MSE with error bars, variable counts, and the selected penalty."}
-plot(fit)
+plot(fit, max_nzero_labels = 10)
 ```
 
 The orange marker identifies the selected penalty. Upper labels count selected
-variables in the full-training models, excluding the intercept. Bars show one
+variables in the full-training models, excluding the intercept. The plot shows
+up to ten labels, including the selected penalty. Bars show one
 fold-based standard error; overlapping training samples make them descriptive
 rather than independent-sample confidence intervals.
 
@@ -45,7 +46,7 @@ axis or plot style uses the stored fit and does not run another model.
 ## Prepare a compact figure
 
 ```{r paper-cv, fig.alt="Compact publication-style CV plot of the same stored fit."}
-plot(fit, style = "paper")
+plot(fit, style = "paper", max_nzero_labels = 10)
 ```
 
 The compact style keeps the CV curve, error bars, and variable counts while

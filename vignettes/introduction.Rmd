@@ -132,14 +132,15 @@ knitr::kable(data.frame(
 ## Plot the CV error
 
 ```{r cv-plot, fig.alt="Lambert CV error, fold-based error bars, variable counts, and the selected penalty."}
-plot(fit)
+plot(fit, max_nzero_labels = 10)
 ```
 
 The horizontal axis is \(\log(\lambda/\lambda_{\max})\), increasing from
 weaker to stronger regularization. Blue points show the mean fold MSE;
 the orange point and dashed line mark the selected penalty. The upper
-axis counts selected variables in each full-training model, excluding
-the intercept. A coefficient is counted when its original-scale magnitude
+axis counts selected variables in the full-training models, excluding
+the intercept. With `max_nzero_labels = 10`, up to ten counts are shown in
+one row and the selected penalty is labeled. A coefficient is counted when its original-scale magnitude
 exceeds \(10^{-8}\).
 
 Error bars show one descriptive standard error: the standard deviation
@@ -152,7 +153,7 @@ For a compact figure, use `style = "paper"`. Other display options change
 the same stored results without refitting:
 
 ```{r plot-options, eval=FALSE}
-plot(fit, style = "paper")
+plot(fit, style = "paper", max_nzero_labels = 10)
 plot(fit, xaxis = "lambda")    # log full-training lambda
 plot(fit, error_bars = FALSE)
 plot(fit, show_nzero = FALSE)

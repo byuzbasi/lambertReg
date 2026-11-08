@@ -37,7 +37,7 @@ lambert_showcase <- function(out) {
     on.exit(grDevices::dev.off())
     force(code)
   }
-  draw("cv.png", graphics::plot(fit))
+  draw("cv.png", graphics::plot(fit, max_nzero_labels = 10))
   draw("coefficients.png", graphics::plot(fit, type = "coefficients", labels = TRUE))
   versions <- c(paste("R", getRversion()), paste("Platform", R.version$platform),
     paste("lambertReg", utils::packageVersion("lambertReg")),
