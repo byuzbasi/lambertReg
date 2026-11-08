@@ -255,14 +255,15 @@ grid. <code>index</code> identifies its path position and
 <h3 id="plot-the-cv-error">Plot the CV error<a class="anchor" aria-label="anchor" href="#plot-the-cv-error"></a>
 </h3>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, max_nzero_labels <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p><img src="introduction_files/figure-html/cv-plot-1.png" class="r-plt" alt="Lambert CV error, fold-based error bars, variable counts, and the selected penalty." width="100%"></p>
 <p>The horizontal axis is <span class="math inline">\log(\lambda/\lambda_{\max})</span>, increasing from
 weaker to stronger regularization. Blue points show the mean fold MSE;
 the orange point and dashed line mark the selected penalty. The upper
-axis counts selected variables in each full-training model, excluding
-the intercept. A coefficient is counted when its original-scale
-magnitude exceeds <span class="math inline">10^{-8}</span>.</p>
+axis counts selected variables in the full-training models, excluding
+the intercept. With <code>max_nzero_labels = 10</code>, up to ten counts
+are shown in one row and the selected penalty is labeled. A coefficient
+is counted when its original-scale magnitude exceeds <span class="math inline">10^{-8}</span>.</p>
 <p>Error bars show one descriptive standard error: the standard
 deviation of the <span class="math inline">K</span> fold MSEs divided by
 <span class="math inline">\sqrt K</span>, where <span class="math inline">K</span> is the number of folds. Because training
@@ -272,7 +273,7 @@ rule.</p>
 <p>For a compact figure, use <code>style = "paper"</code>. Other display
 options change the same stored results without refitting:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, style <span class="op">=</span> <span class="st">"paper"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, style <span class="op">=</span> <span class="st">"paper"</span>, max_nzero_labels <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, xaxis <span class="op">=</span> <span class="st">"lambda"</span><span class="op">)</span>    <span class="co"># log full-training lambda</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, error_bars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, show_nzero <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>

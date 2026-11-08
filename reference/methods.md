@@ -30,7 +30,8 @@ plot(x, xaxis = c("fraction", "lambda"),
                          main = NULL, xlab = NULL,
                          ylab = "Cross-validation MSE", error_bars = TRUE,
                          bar_col = "#B5C4CE", style = c("detailed", "paper"),
-                         type = c("cv", "coefficients"), labels = FALSE, ...)
+                         type = c("cv", "coefficients"), labels = FALSE, ...,
+                         max_nzero_labels = Inf)
 ```
 
 ## Arguments
@@ -59,14 +60,21 @@ plot(x, xaxis = c("fraction", "lambda"),
 
 - show_nzero:
 
-  Display the full-training selected-variable counts above every path
-  position, excluding the intercept.
+  Display the full-training selected-variable counts above the path,
+  excluding the intercept.
 
 - label_cex:
 
   Optional positive character expansion for the unrotated upper labels.
   The default adapts to label widths and spacing. For long paths, export
   a wider plot to keep all labels legible.
+
+- max_nzero_labels:
+
+  Maximum number of upper count labels. The default `Inf` shows all
+  positions. A positive integer displays a spaced subset and keeps the
+  CV-selected position when visible. This changes only the labels,
+  leaving the CV curve and error bars at every available position.
 
 - error_bars:
 
@@ -140,20 +148,20 @@ selected full-training lambda, mean CV MSE and selected-variable count.
 The paper style omits these annotations while retaining error bars and
 upper counts. The upper labels show counts from verified full-training
 models with original-scale coefficient magnitudes greater than
-\\10^{-8}\\. Every path position is labeled; repeated counts are
-retained. Unverified or absent counts appear as two dashes, never as
-zeros. Older CV objects without counts still plot with a warning and
-unavailable upper labels; no fitting is triggered. An unverified
-selected full-training fit produces a warning. Incomplete CV candidates
-are omitted from the display. Graphical parameters are restored after
-plotting. For candidate \\k\\, the bars extend from \\\overline
-L_k-s_k/\sqrt{K}\\ to \\\overline L_k+s_k/\sqrt{K}\\, where \\L\_{k,f}\\
-is its MSE in validation fold \\f\\, \\\overline L_k\\ is the arithmetic
-mean of these \\K\\ losses, and \\s_k\\ is their sample standard
-deviation (divisor \\K-1\\). Bars are computed only when every fold loss
-is finite; unavailable bars are omitted. Negative lower endpoints are
-not truncated. Default y-axis limits include the bars; a user-supplied
-`ylim` may clip them.
+\\10^{-8}\\. By default, every path position is labeled and repeated
+counts are retained. Unverified or absent counts appear as two dashes,
+never as zeros. Older CV objects without counts still plot with a
+warning and unavailable upper labels; no fitting is triggered. An
+unverified selected full-training fit produces a warning. Incomplete CV
+candidates are omitted from the display. Graphical parameters are
+restored after plotting. For candidate \\k\\, the bars extend from
+\\\overline L_k-s_k/\sqrt{K}\\ to \\\overline L_k+s_k/\sqrt{K}\\, where
+\\L\_{k,f}\\ is its MSE in validation fold \\f\\, \\\overline L_k\\ is
+the arithmetic mean of these \\K\\ losses, and \\s_k\\ is their sample
+standard deviation (divisor \\K-1\\). Bars are computed only when every
+fold loss is finite; unavailable bars are omitted. Negative lower
+endpoints are not truncated. Default y-axis limits include the bars; a
+user-supplied `ylim` may clip them.
 
 Training folds overlap, so this conventional fold-based standard-error
 display is descriptive, not an independent-sample confidence interval.

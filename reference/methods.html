@@ -72,7 +72,8 @@ inspect numerical status, or plot fitted paths and cross-validation scores.</p>
 <span>                         main <span class="op">=</span> <span class="cn">NULL</span>, xlab <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                         ylab <span class="op">=</span> <span class="st">"Cross-validation MSE"</span>, error_bars <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                         bar_col <span class="op">=</span> <span class="st">"#B5C4CE"</span>, style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"detailed"</span>, <span class="st">"paper"</span><span class="op">)</span>,</span>
-<span>                         type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cv"</span>, <span class="st">"coefficients"</span><span class="op">)</span>, labels <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span>                         type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cv"</span>, <span class="st">"coefficients"</span><span class="op">)</span>, labels <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span>,</span>
+<span>                         max_nzero_labels <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -98,12 +99,18 @@ scores in both displays.</p></dd>
 
 <dt id="arg-show-nzero">show_nzero<a class="anchor" aria-label="anchor" href="#arg-show-nzero"></a></dt>
 <dd><p>Display the full-training selected-variable counts above
-every path position, excluding the intercept.</p></dd>
+the path, excluding the intercept.</p></dd>
 
 <dt id="arg-label-cex">label_cex<a class="anchor" aria-label="anchor" href="#arg-label-cex"></a></dt>
 <dd><p>Optional positive character expansion for the unrotated upper
 labels. The default adapts to label widths and spacing. For long paths,
 export a wider plot to keep all labels legible.</p></dd>
+
+<dt id="arg-max-nzero-labels">max_nzero_labels<a class="anchor" aria-label="anchor" href="#arg-max-nzero-labels"></a></dt>
+<dd><p>Maximum number of upper count labels. The default
+<code>Inf</code> shows all positions. A positive integer displays a spaced subset
+and keeps the CV-selected position when visible. This changes only the
+labels, leaving the CV curve and error bars at every available position.</p></dd>
 
 <dt id="arg-error-bars">error_bars<a class="anchor" aria-label="anchor" href="#arg-error-bars"></a></dt>
 <dd><p>Draw descriptive mean plus/minus one fold-based standard
@@ -164,8 +171,7 @@ view reports the selected full-training lambda, mean CV MSE and selected-variabl
 count. The paper style omits these annotations while retaining error bars and
 upper counts. The upper labels show
 counts from verified full-training models with original-scale coefficient
-magnitudes greater than \(10^{-8}\). Every path position is labeled; repeated
-counts are retained. Unverified or absent counts appear as two dashes, never
+magnitudes greater than \(10^{-8}\). By default, every path position is labeled and repeated counts are retained. Unverified or absent counts appear as two dashes, never
 as zeros. Older CV objects without counts still plot with a warning and
 unavailable upper labels; no fitting is triggered. An unverified selected
 full-training fit produces a warning. Incomplete CV candidates are omitted

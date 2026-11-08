@@ -14,7 +14,7 @@ manuscript.
 
 ``` r
 
-plot(fit)
+plot(fit, max_nzero_labels = 10)
 ```
 
 ![Cross-validation MSE with error bars, variable counts, and the
@@ -22,9 +22,9 @@ selected penalty.](gallery_files/figure-html/cv-1.png)
 
 The orange marker identifies the selected penalty. Upper labels count
 selected variables in the full-training models, excluding the intercept.
-Bars show one fold-based standard error; overlapping training samples
-make them descriptive rather than independent-sample confidence
-intervals.
+The plot shows up to ten labels, including the selected penalty. Bars
+show one fold-based standard error; overlapping training samples make
+them descriptive rather than independent-sample confidence intervals.
 
 ### Follow the coefficients
 
@@ -45,7 +45,7 @@ another model.
 
 ``` r
 
-plot(fit, style = "paper")
+plot(fit, style = "paper", max_nzero_labels = 10)
 ```
 
 ![Compact publication-style CV plot of the same stored

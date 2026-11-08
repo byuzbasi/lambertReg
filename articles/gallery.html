@@ -88,12 +88,13 @@ from the manuscript.</p>
 <h3 id="choose-a-penalty">Choose a penalty<a class="anchor" aria-label="anchor" href="#choose-a-penalty"></a>
 </h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, max_nzero_labels <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p><img src="gallery_files/figure-html/cv-1.png" class="r-plt" alt="Cross-validation MSE with error bars, variable counts, and the selected penalty." width="100%"></p>
 <p>The orange marker identifies the selected penalty. Upper labels count
 selected variables in the full-training models, excluding the intercept.
-Bars show one fold-based standard error; overlapping training samples
-make them descriptive rather than independent-sample confidence
+The plot shows up to ten labels, including the selected penalty. Bars
+show one fold-based standard error; overlapping training samples make
+them descriptive rather than independent-sample confidence
 intervals.</p>
 </div>
 <div class="section level3">
@@ -111,7 +112,7 @@ another model.</p>
 <h3 id="prepare-a-compact-figure">Prepare a compact figure<a class="anchor" aria-label="anchor" href="#prepare-a-compact-figure"></a>
 </h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, style <span class="op">=</span> <span class="st">"paper"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, style <span class="op">=</span> <span class="st">"paper"</span>, max_nzero_labels <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p><img src="gallery_files/figure-html/paper-cv-1.png" class="r-plt" alt="Compact publication-style CV plot of the same stored fit." width="100%"></p>
 <p>The compact style keeps the CV curve, error bars, and variable counts
 while removing the detailed title and selected-fit summary.</p>
